@@ -5,7 +5,7 @@ ITEM.ClassName = "item_m60"
 ITEM.WeaponClass = "m60"
 
 ITEM.Name = "M60"
-ITEM.Desc = "Uses Rifle Ammo"
+ITEM.Desc = "M60"
 ITEM.Model = "models/weapons/w_irifle.mdl"
 
 ITEM.Price = 105000
@@ -21,7 +21,7 @@ ITEM.Restrictions = false
 ITEM.Upgrades = {}
 ITEM.Upgrades[ "power" ] = {
 
-	GetDisp = function( level ) return ITEM.Upgrades[ "power" ].GetNew( level ) .. " DAMAGE" end,
+	GetDisp = function( level ) return translate.Format( "upgrade_stat_power", ITEM.Upgrades[ "power" ].GetNew( level ) ) end,
 	
 	GetCost = function( level ) return ( 2000 + level*3000 ) end,
 	
@@ -37,7 +37,7 @@ ITEM.Upgrades[ "power" ] = {
 
 ITEM.Upgrades[ "precision" ] = {
 
-	GetDisp = function( level ) return ITEM.Upgrades[ "precision" ].GetNew( level ) .. "m SPREAD" end,
+	GetDisp = function( level ) return translate.Format( "upgrade_stat_precision", ITEM.Upgrades[ "precision" ].GetNew( level ) ) end,
 	
 	GetCost = function( level ) return ( 100 + level*1000 ) end,
 	
@@ -53,7 +53,7 @@ ITEM.Upgrades[ "precision" ] = {
 
 ITEM.Upgrades[ "capacity" ] = {
 
-	GetDisp = function( level ) return ITEM.Upgrades[ "capacity" ].GetNew( level ) .. " ROUNDS PER MAG" end,
+	GetDisp = function( level ) return translate.Format( "upgrade_stat_capacity", ITEM.Upgrades[ "capacity" ].GetNew( level ) ) end,
 	
 	GetCost = function( level ) return ( 1000 + level*1000 ) end,
 	
@@ -69,7 +69,7 @@ ITEM.Upgrades[ "capacity" ] = {
 
 ITEM.Upgrades[ "chambering" ] = {
 
-	GetDisp = function( level ) return math.Round( 1/ITEM.Upgrades[ "chambering" ].GetNew( level ) ) .. " SHOTS PER SECOND" end,
+	GetDisp = function( level ) return translate.Format( "upgrade_stat_chambering", math.Round( 1/ITEM.Upgrades[ "chambering" ].GetNew( level ) ) ) end,
 	
 	GetCost = function( level ) return ( 4000 + ( level^2 )*400 ) end,
 	

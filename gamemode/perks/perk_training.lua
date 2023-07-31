@@ -2,8 +2,8 @@
 local PERK = {}
 
 PERK.ClassName = "perk_training" 
-PERK.Name = "Combat Training"
-PERK.Desc = "Gain Movement Speed"
+PERK.Name = "perk_combattraining"
+PERK.Desc = "perk_combattraining"
 PERK.Category = "Defense"
 PERK.Model = "models/props_lab/binderbluelabel.mdl"
 PERK.Price = 15000

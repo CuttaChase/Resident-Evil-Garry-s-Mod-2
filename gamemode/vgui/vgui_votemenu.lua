@@ -35,7 +35,7 @@ function MENU:VotingMenu()
 			surface.SetDrawColor( maincolor )
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
-		draw.SimpleTextOutlined( "Voting", "wOS.GenericLarge", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get("voting_menu"), "wOS.GenericLarge", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 		surface.SetFont( "wOS.GenericLarge" )
 		local tx, ty = surface.GetTextSize( "Voting" )
 		surface.SetDrawColor( color_white )
@@ -97,24 +97,24 @@ function MENU:VotingMenu()
 			--GUI_Difficulty:AddColumn(translate.Get("difficulty_vote"))
 			GUI_Difficulty:SetParent(self.Voting)
 
-			--translate.Get("easy")
-			--translate.Get("normal")
-			--translate.Get("difficult")
-			--translate.Get("expert")
-			--translate.Get("suicidal")
-			--translate.Get("death")
-			--translate.Get("racooncity")
+			--"Easy"
+			--"Normal"
+			--"Difficult"
+			--"Expert"
+			--"Suicidal"
+			--"Death"
+			--"RacoonCity"
 
-			local easy = GUI_Difficulty:AddChoice( translate.Get("easy"), "ea" ) -- Add our options
-    		local norm = GUI_Difficulty:AddChoice( translate.Get("normal"), "no" )
-    		local diff = GUI_Difficulty:AddChoice( translate.Get("difficult"), "di" )
-    		local exp = GUI_Difficulty:AddChoice( translate.Get("expert"), "ex" )
-    		local suc = GUI_Difficulty:AddChoice( translate.Get("suicidal"), "su" )
+			local easy = GUI_Difficulty:AddChoice( translate.Get("difficulty_name_easy"), "ea" ) -- Add our options
+    		local norm = GUI_Difficulty:AddChoice( translate.Get("difficulty_name_normal"), "no" )
+    		local diff = GUI_Difficulty:AddChoice( translate.Get("difficulty_name_difficult"), "di" )
+    		local exp = GUI_Difficulty:AddChoice( translate.Get("difficulty_name_expert"), "ex" )
+    		local suc = GUI_Difficulty:AddChoice( translate.Get("difficulty_name_suicidal"), "su" )
 
 
 			GUI_Difficulty:SetSize( mw*0.4, mh*0.06 )
 			GUI_Difficulty:SetPos( mw*0.5, mh*0.12 )
-			GUI_Difficulty:ChooseOption( translate.Get("easy") )
+			GUI_Difficulty:ChooseOption( translate.Get("difficulty_name_easy") )
 
 			function GUI_Difficulty:OnSelect( index, text, data )
 				if data == "ea" then
@@ -148,9 +148,9 @@ function MENU:VotingMenu()
 			GUI_Gamemode_Selection:SetPos( mw*0.05, mh*0.12 )
 			GUI_Gamemode_Selection:SetSize( mw*0.4, mh*0.06 )
 			for h,j in pairs(GamemodeListTable) do
-				GUI_Gamemode_Selection:AddChoice(j)
+				GUI_Gamemode_Selection:AddChoice(translate.Get("gametype_" .. string.lower(j)))
 			end
-			GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+			GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
 	function GUI_Gamemode_Selection:OnSelect(index,value,data)
 			if value == "Escape" then
@@ -198,7 +198,7 @@ function MENU:VotingMenu()
 
 			local GUI_Difficulty_Vote_Label = vgui.Create("DLabel")
 			function GUI_Difficulty_Vote_Label:Think()
-				GUI_Difficulty_Vote_Label:SetText(translate.Get("you_selected").." "..VoteOption["Difficulty"])
+				GUI_Difficulty_Vote_Label:SetText(translate.Format("you_selected_difficulty", translate.Get("difficulty_name_" .. string.lower(VoteOption["Difficulty"]))))
 			end
 			GUI_Difficulty_Vote_Label:SetSize( 260,20 )
 			GUI_Difficulty_Vote_Label:SetPos(mw*0.05, mh*0.55 )
@@ -206,7 +206,7 @@ function MENU:VotingMenu()
 
 			local GUI_Map_Vote_Label = vgui.Create("DLabel")
 			function GUI_Map_Vote_Label:Think()
-				GUI_Map_Vote_Label:SetText(translate.Get("you_selected").." "..VoteOption["Map"])
+				GUI_Map_Vote_Label:SetText(translate.Format("you_selected_map", VoteOption["Map"]))
 			end
 			GUI_Map_Vote_Label:SetSize( 260,20  )
 			GUI_Map_Vote_Label:SetPos(mw*0.05, mh*0.60 )
@@ -214,7 +214,7 @@ function MENU:VotingMenu()
 
 			local GUI_Gamemode_Vote_Label = vgui.Create("DLabel")
 			function GUI_Gamemode_Vote_Label:Think()
-				GUI_Gamemode_Vote_Label:SetText(translate.Get("you_selected").." "..VoteOption["Game"])
+				GUI_Gamemode_Vote_Label:SetText(translate.Format("you_selected_gamemode", VoteOption["Game"]))
 			end
 			GUI_Gamemode_Vote_Label:SetSize( 260,20  )
 			GUI_Gamemode_Vote_Label:SetPos(mw*0.05, mh*0.65 )
@@ -282,7 +282,7 @@ function MENU:VotingMenu()
 			surface.SetDrawColor( Color( 0, 0, 0, 175 ) )
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
-		draw.SimpleTextOutlined( "Close Menu", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get("voting_menu_close"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 	end
 	closebutt.DoClick = function( pan )
 		surface.PlaySound( "buttons/button14.wav" )

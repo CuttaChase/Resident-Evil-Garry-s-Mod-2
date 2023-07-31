@@ -57,9 +57,9 @@ function MENU:OpenInventory()
 		EnterMerc:SetText("")
 		EnterMerc.Paint = function( pan, ww, hh )
 			if EnterMerc:IsHovered() then
-				draw.SimpleTextOutlined( "Open Merchant", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("inventory_open_shop"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 			else
-				draw.SimpleTextOutlined( "Open Merchant", "wOS.GenericMed", ww/2, hh/2, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
+				draw.SimpleTextOutlined( translate.Get("inventory_open_shop"), "wOS.GenericMed", ww/2, hh/2, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
 			end
 		end
 		EnterMerc.DoClick = function(EnterMerc)
@@ -103,12 +103,12 @@ function MENU:ReloadInventory()
 			MENU:EndStencil()
 
 			if not LocalPlayer().inventory[ i ] then
-				draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				return
 			end
 
 			if LocalPlayer().inventory[ i ].Item == 0 then
-				draw.SimpleTextOutlined( "EMPTY", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_slot_empty"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				return
 			end
 
@@ -154,7 +154,7 @@ function MENU:ReloadInventory()
 		ItemButt:SetText( "" )
 		ItemButt.Slot = i
 		ItemButt.Paint = function( pan, ww, hh )
-			draw.SimpleTextOutlined( "SLOT " .. ItemButt.Slot, "wOS.GenericSmall", ww/2, hh*0.98, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+			draw.SimpleTextOutlined( translate.Format("item_slot_x", ItemButt.Slot), "wOS.GenericSmall", ww/2, hh*0.98, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 			if LocalPlayer().inventory[ i ].Amount > 1 then
 				if flipset then
 					draw.SimpleTextOutlined( "x" .. LocalPlayer().inventory[ ItemButt.Slot ].Amount, "wOS.GenericSmall", ww*0.05, hh*0.02, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 0, color_white )
@@ -189,8 +189,8 @@ function MENU:ReloadInventory()
 					surface.SetDrawColor( maincolor )
 					surface.DrawRect( 0, 0, ww, hh )
 				MENU:EndStencil()
-				draw.SimpleTextOutlined( data.Name, "wOS.GenericMed", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
-				draw.SimpleTextOutlined( data.Desc, "wOS.GenericSmall", ww/2, hh*0.55, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_name_" .. data.Name), "wOS.GenericMed", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_desc_" .. data.Desc), "wOS.GenericSmall", ww/2, hh*0.55, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 
 			end
 			ItemButt.ItemContext.Think = function( self )
@@ -204,7 +204,7 @@ function MENU:ReloadInventory()
 			ItemButt.ItemIconOptions.Think = function( self )
 				if not MENU.Inventory then self:Remove() end
 			end
-			ItemButt.ItemIconOptions:AddOption( "Use", function()
+			ItemButt.ItemIconOptions:AddOption( translate.Get("use"), function()
 				net.Start( "REGmod.UseItem" )
 					net.WriteString( data.ClassName, 32 )
 					net.WriteInt( ItemButt.Slot, 32 )
@@ -213,7 +213,7 @@ function MENU:ReloadInventory()
 				self:ReloadInventory()
 			end )
 
-			ItemButt.ItemIconOptions:AddOption( "Give", function()
+			ItemButt.ItemIconOptions:AddOption( translate.Get("give"), function()
 				net.Start( "REGmod.GiveItem" )
 					net.WriteString( data.ClassName, 32 )
 					net.WriteInt( ItemButt.Slot, 32 )
@@ -236,7 +236,7 @@ function MENU:ReloadInventory()
 				end
 			end
 
-			ItemButt.ItemIconOptions:AddOption( "Drop", function()
+			ItemButt.ItemIconOptions:AddOption( translate.Get("drop"), function()
 				net.Start( "REGmod.DropItem" )
 					net.WriteString( data.ClassName, 32 )
 					net.WriteInt( ItemButt.Slot, 32 )

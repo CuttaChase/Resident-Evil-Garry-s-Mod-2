@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_barricade"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Barricade"
-ITEM.Desc = "Keep Zombies Out"
+ITEM.Name = "barricade"
+ITEM.Desc = "barricade"
 ITEM.Model = "models/props_wasteland/barricade002a.mdl"
 
 ITEM.Price = 150

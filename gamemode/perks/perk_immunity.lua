@@ -2,9 +2,9 @@
 local PERK = {}
 
 PERK.ClassName = "perk_immunity"
-PERK.Name = "Immunity"
-PERK.Desc = "Can not be infected when damaged"
-PERK.Category = "Donor Perks"
+PERK.Name = "perk_immunity"
+PERK.Desc = "perk_immunity"
+PERK.Category = "DonorPerks"
 PERK.Model = "models/props_lab/jar01a.mdl"
 PERK.Price = 100000
 

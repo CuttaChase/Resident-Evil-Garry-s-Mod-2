@@ -115,27 +115,27 @@ function GM:HUDPaint()
 			local secondary_ammo = client:GetAmmoCount(client:GetActiveWeapon():GetSecondaryAmmoType())
 			local MHp = client:GetMaxHealth()
 			local Hp = client:Health()
-			local str_status = translate.Get("fine")
+			local str_status = "Fine"
 			local Col_Hp = Color(0,255,0,155)
 			local ekg = 1
 			if Hp >= 75 then
-				str_status = translate.Get("fine")
+				str_status = "Fine"
 				Col_Hp = Color(0,155,0,155)
 				ekg = 1
 				elseif Hp >= 51 and Hp <= 74 then
-				str_status = translate.Get("fine")
+				str_status = "Fine"
 				ekg = 2
 				Col_Hp = Color(155,155,0,155)
 				elseif Hp >= 20 and Hp <= 50 then
-				str_status = translate.Get("caution")
+				str_status = "Caution"
 				ekg = 3
 				Col_Hp = Color(155,100,0,155)
 				elseif Hp <= 19 then
-				str_status = translate.Get("danger")
+				str_status = "Danger"
 				ekg = 4
 				Col_Hp = Color(155,0,0,155)
 				else
-				str_status = translate.Get("dead")
+				str_status = "Dead"
 				Col_Hp = Color(0,0,0,155)
 			end
 
@@ -164,32 +164,32 @@ function GM:HUDPaint()
 
 	----------------Ammo
 
-			paintText("Magazine:  "..intAmmoInMag,"Trebuchet18o",5,87,Color(200,200,200,255),false,false)
-			paintText("Ammo:  "..intAmmoOutMag,"Trebuchet18o",5,102,Color(200,200,200,255),false,false)
+			paintText(translate.Format("mags_x_format", intAmmoInMag),"Trebuchet18o",5,87,Color(200,200,200,255),false,false)
+			paintText(translate.Format("ammo_x_format", intAmmoOutMag),"Trebuchet18o",5,102,Color(200,200,200,255),false,false)
 			--..
-			paintText(translate.Get("kills")..": "..client:GetNWInt("killcount"),"Trebuchet18o",5,72,Color(200,200,200,255),false,false)
-			paintText("$"..string.Comma(Money), "Trebuchet24o", 5, 0, Color(0,255,0,255), false, false)
+			paintText(translate.Format("kills_x_format", client:GetNWInt("killcount")),"Trebuchet18o",5,72,Color(200,200,200,255),false,false)
+			paintText(translate.Format("money_x_format2", string.Comma(Money)), "Trebuchet24o", 5, 0, Color(0,255,0,255), false, false)
 
 			--if GetGlobalBool("Re2_Classic") then
 				--draw.SimpleText("Classic","Default",58,SH-60,Color(155,0,0,255),0,0)
 			--end
 
 			if GAMEMODE.Gamemode[GetGlobalString("RE2_Game")].Name != nil then
-				paintText(translate.Get("game").." : "..GAMEMODE.Gamemode[GetGlobalString("RE2_Game")].Name,"Trebuchet18o",5,56,Color(255,255,255,255),false,false)
+				paintText(translate.Format("game_format_name", translate.Get("gametype_" .. string.lower(GAMEMODE.Gamemode[GetGlobalString("RE2_Game")].Name))),"Trebuchet18o",5,56,Color(255,255,255,255),false,false)
 			else
-				paintText(translate.Get("game").." : "..GetGlobalString("RE2_Game"),"Trebuchet18o",5,56,Color(200,200,200,255),false,false)
+				paintText(translate.Format("game_format_name", translate.Get("gametype_" .. string.lower(GetGlobalString("RE2_Game")))),"Trebuchet18o",5,56,Color(200,200,200,255),false,false)
 			end
-				paintText(translate.Get("difficulty")..": "..GetGlobalString("RE2_Difficulty"),"Trebuchet18o",5,40,Color(200,200,200,255),false,false)
+				paintText(translate.Format("difficulty_format_name", translate.Get("difficulty_name_" .. string.lower(GetGlobalString("RE2_Difficulty")))),"Trebuchet18o",5,40,Color(200,200,200,255),false,false)
 				local xPos, yPos = ScrW()/2, 0
 				local text = ""
 				if GetGlobalString("Mode") == "Merchant" || GetGlobalString("Mode") == "prep" then
-					text = translate.Get("starting_in").." : "..string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown"))
-				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") != "Mercenaries" && GetGlobalString("RE2_Game") != "VIP" && GetGlobalString("RE2_Game") != "Team_VIP" && GetGlobalString("RE2_Game") != "Boss" then
-					text = translate.Get("time_alive").." : "..string.ToMinutesSeconds(client:GetNWInt("Time"))
-					//draw.SimpleText("Time Alive : "..string.ToMinutesSeconds(client:GetNWInt("Time")),"Trebuchet18o",5,SH-25.6,Color(255,255,255,255),0,0)
-				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") == "Mercenaries" || GetGlobalString("RE2_Game") == "VIP" ||  GetGlobalString("RE2_Game") == "Team_VIP" ||  GetGlobalString("RE2_Game") == "Boss"  then
-					text = translate.Get("time_alive").." : "..string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown"))
-					//draw.SimpleText(translate.Get("time_left").." : "..string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown")),"Trebuchet18o",5,SH-25.6,Color(255,255,255,255),0,0)
+					text = translate.Format("starting_in_x_format", string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown")))
+				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") != "Mercenaries" && GetGlobalString("RE2_Game") != "VIP" && GetGlobalString("RE2_Game") != "TeamVIP" && GetGlobalString("RE2_Game") != "Boss" then
+					text = translate.Format("time_alive_x_format", string.ToMinutesSeconds(client:GetNWInt("Time")))
+					//draw.SimpleText(translate.Format("time_alive_x_format", string.ToMinutesSeconds(client:GetNWInt("Time"))),"Trebuchet18o",5,SH-25.6,Color(255,255,255,255),0,0)
+				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") == "Mercenaries" || GetGlobalString("RE2_Game") == "VIP" ||  GetGlobalString("RE2_Game") == "TeamVIP" ||  GetGlobalString("RE2_Game") == "Boss"  then
+					text = translate.Format("time_alive_x_format", string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown")))
+					//draw.SimpleText(translate.Format("time_left_x_format", string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown"))),"Trebuchet18o",5,SH-25.6,Color(255,255,255,255),0,0)
 				end
 				local width, height = getTextSize(text, "zgTimerText")
 				height = height + 5
@@ -206,11 +206,11 @@ function GM:HUDPaint()
 				paintText(text, "zgTimerText", xPos, yPos + height/2, Color(255,255,255,155), true, true)
 
 				if GetGlobalString("RE2_Game") == "Survivor" or GetGlobalString("RE2_Game") == "Doom" then
-					paintText(translate.Get("dead_zombies").." : " .. GetGlobalInt("RE2_DeadZombies").."/"..GetGlobalInt("DeadZombieKillNumber"),"Trebuchet18o",5,24,Color(200,10,10,255),false,false)
+					paintText(translate.Format("dead_zombies_format", GetGlobalInt("RE2_DeadZombies"), GetGlobalInt("DeadZombieKillNumber")),"Trebuchet18o",5,24,Color(200,10,10,255),false,false)
 				else
-					paintText(translate.Get("dead_zombies").." : " .. GetGlobalInt("RE2_DeadZombies"),"Trebuchet18o",5,24,Color(200,10,10,255),false,false)
+					paintText(translate.Format("dead_zombies_format2", GetGlobalInt("RE2_DeadZombies")),"Trebuchet18o",5,24,Color(200,10,10,255),false,false)
 				end
-				paintText(translate.Get("condition")..": "..str_status,"Trebuchet24o",offset,SH - SH/6,Color(255,255,255,255),false,true)
+				paintText(translate.Format("condition_format_status", translate.Get("status_" .. string.lower(str_status))),"Trebuchet24o",offset,SH - SH/6,Color(255,255,255,255),false,true)
 			end
 		end
 	end
@@ -222,28 +222,28 @@ function GM:HUDPaint()
 			surface.SetDrawColor( Color(0,0,0,200))
 			surface.DrawOutlinedRect(0,SH -158,129,159)
 
-			draw.SimpleText(translate.Get("difficulty")..": "..GetGlobalString("RE2_Difficulty"),"Trebuchet18o",5,SH-144,Color(255,255,255,255),0,0)
-			draw.SimpleText(translate.Get("your_kills")..": "..client:GetNWInt("killcount"),"Trebuchet18o",5,SH-100,Color(200,200,200,255),0,0)
-			draw.SimpleText(translate.Get("money").." $"..Money,"Trebuchet18o",5,SH-80,Color(50,200,50,255),0,0)
+			draw.SimpleText(translate.Format("difficulty_format_name", translate.Get("difficulty_name_" .. string.lower(GetGlobalString("RE2_Difficulty")))),"Trebuchet18o",5,SH-144,Color(255,255,255,255),0,0)
+			draw.SimpleText(translate.Format("your_kills_x_format", client:GetNWInt("killcount")),"Trebuchet18o",5,SH-100,Color(200,200,200,255),0,0)
+			draw.SimpleText(translate.Format("money_x_format", Money),"Trebuchet18o",5,SH-80,Color(50,200,50,255),0,0)
 			if GAMEMODE.Gamemode[GetGlobalString("RE2_Game")].Name != nil then
-				draw.SimpleText(translate.Get("game").." : "..GAMEMODE.Gamemode[GetGlobalString("RE2_Game")].Name,"Trebuchet18o",5,SH-60,Color(255,255,255,255),0,0)
+				draw.SimpleText(translate.Format("game_format_name", translate.Get("gametype_" .. string.lower(GAMEMODE.Gamemode[GetGlobalString("RE2_Game")].Name))),"Trebuchet18o",5,SH-60,Color(255,255,255,255),0,0)
 			else
-				draw.SimpleText(translate.Get("game").." : "..GetGlobalString("RE2_Game"),"Trebuchet18o",5,SH-60,Color(255,255,255,255),0,0)
+				draw.SimpleText(translate.Format("game_format_name", translate.Get("gametype_" .. string.lower(GetGlobalString("RE2_Game")))),"Trebuchet18o",5,SH-60,Color(255,255,255,255),0,0)
 			end
-			draw.SimpleText(translate.Get("your_time").." : "..string.ToMinutesSeconds(client:GetNWInt("Time")),"Trebuchet18o",5,SH-40,Color(255,255,255,255),0,0)
+			draw.SimpleText(translate.Format("your_time_x_format", string.ToMinutesSeconds(client:GetNWInt("Time"))),"Trebuchet18o",5,SH-40,Color(255,255,255,255),0,0)
 
 				if GetGlobalString("Mode") == "Merchant" || GetGlobalString("Mode") == "prep" then
-					draw.SimpleText(translate.Get("starting_in").." : "..string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown")),"Trebuchet18o",5,SH-20,Color(255,255,255),0,0)
-				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") != "Mercenaries" && GetGlobalString("RE2_Game") != "VIP" && GetGlobalString("RE2_Game") != "Team_VIP" && GetGlobalString("RE2_Game") != "Boss"  then
-					draw.SimpleText(translate.Get("gametime").." : "..string.ToMinutesSeconds(GetGlobalInt("Re2_GameTime")),"Trebuchet18o",5,SH-20,Color(255,255,255,255),0,0)
-				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") == "Mercenaries" || GetGlobalString("RE2_Game") == "VIP" ||  GetGlobalString("RE2_Game") == "Team_VIP" ||  GetGlobalString("RE2_Game") == "Boss" then
-					draw.SimpleText(translate.Get("time_left").." : "..string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown")),"Trebuchet18o",5,SH-20,Color(255,255,255,255),0,0)
+					draw.SimpleText(translate.Format("starting_in_x_format", string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown"))),"Trebuchet18o",5,SH-20,Color(255,255,255),0,0)
+				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") != "Mercenaries" && GetGlobalString("RE2_Game") != "VIP" && GetGlobalString("RE2_Game") != "TeamVIP" && GetGlobalString("RE2_Game") != "Boss"  then
+					draw.SimpleText(translate.Format("gametime_x_format", string.ToMinutesSeconds(GetGlobalInt("Re2_GameTime"))),"Trebuchet18o",5,SH-20,Color(255,255,255,255),0,0)
+				elseif GetGlobalString("Mode") == "On" && GetGlobalString("RE2_Game") == "Mercenaries" || GetGlobalString("RE2_Game") == "VIP" ||  GetGlobalString("RE2_Game") == "TeamVIP" ||  GetGlobalString("RE2_Game") == "Boss" then
+					draw.SimpleText(translate.Format("time_left_x_format", string.ToMinutesSeconds(GetGlobalInt("Re2_CountDown"))),"Trebuchet18o",5,SH-20,Color(255,255,255,255),0,0)
 				end
 				if GetGlobalString("RE2_Game") == "Survivor" or GetGlobalString("RE2_Game") == "Doom" then
-					draw.SimpleText(translate.Get("dead_zombies").." : ","Trebuchet18o",5,SH-124,Color(200,10,10),0,0)
-					draw.SimpleText(GetGlobalInt("RE2_DeadZombies").."/"..GetGlobalInt("DeadZombieKillNumber"),"Trebuchet18o", 64 ,SH-112,Color(200,10,10),1,0)
+					draw.SimpleText(translate.Get("dead_zombies_format3"),"Trebuchet18o",5,SH-124,Color(200,10,10),0,0)
+					draw.SimpleText(translate.Format("dead_zombies_format4", GetGlobalInt("RE2_DeadZombies"), GetGlobalInt("DeadZombieKillNumber")),"Trebuchet18o", 64 ,SH-112,Color(200,10,10),1,0)
 				else
-					draw.SimpleText(translate.Get("dead_zombies").." : ","Trebuchet18o", 5,SH-124,Color(200,10,10),0,0)
+					draw.SimpleText(translate.Get("dead_zombies_format3"),"Trebuchet18o", 5,SH-124,Color(200,10,10),0,0)
 					draw.SimpleText(GetGlobalInt("RE2_DeadZombies"),"Trebuchet18o", 64,SH-112,Color(200,10,10),1,0)
 				end
 	end

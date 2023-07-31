@@ -42,8 +42,6 @@ include( "sv/sh_ply_extension.lua" )
 include( "sv/gamemodes.lua" )
 include( "sv/admincommands.lua" )
 
-resource.AddWorkshop( "548706398" )
-resource.AddWorkshop( "853500974" )
 
 -- DataStreams
 if SERVER then

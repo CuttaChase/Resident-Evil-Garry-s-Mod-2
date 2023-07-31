@@ -2,8 +2,8 @@
 local PERK = {}
 
 PERK.ClassName = "perk_doubletap" 
-PERK.Name = "Double Tap"
-PERK.Desc = "Shoot 2 Shots Instead Of 1"
+PERK.Name = "perk_doubletap"
+PERK.Desc = "perk_doubletap"
 PERK.Category = "Attack"
 PERK.Model = "models/Items/ammocrate_ar2.mdl"
 PERK.Price = 250000

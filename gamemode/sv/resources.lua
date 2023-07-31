@@ -25,5 +25,3 @@ if !game.SinglePlayer() then
 	ProcessFolder('gamemodes/' .. GM.Path .. '/content/maps/');
 end
 --*/
-
-resource.AddWorkshop("1477916884") -- RE2 Alleys

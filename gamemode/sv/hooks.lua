@@ -69,7 +69,7 @@ hook.Add("PlayerSay","GotStuck",function(ply, text, team)
 
 	end
 			
-		ply:ChatPrint("Can Only Do Once")
+		ply:ChatPrint(translate.ClientGet(ply, "unstuck_only_once"))
 		
 		
 	end

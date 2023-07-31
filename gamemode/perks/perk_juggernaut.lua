@@ -2,8 +2,8 @@
 local PERK = {}
 
 PERK.ClassName = "perk_juggernaut" 
-PERK.Name = "Resilience"
-PERK.Desc = "Take 25% less damage"
+PERK.Name = "perk_resilience"
+PERK.Desc = "perk_resilience"
 PERK.Category = "Defense"
 PERK.Model = "models/Items/hevsuit.mdl"
 PERK.Price = 20000

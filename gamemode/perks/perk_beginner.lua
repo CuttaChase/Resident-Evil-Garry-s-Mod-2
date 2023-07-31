@@ -2,8 +2,8 @@
 local PERK = {}
 
 PERK.ClassName = "perk_beginner" 
-PERK.Name = "Beginner's Luck"
-PERK.Desc = "Gain 100% more health but gain 75% less money"
+PERK.Name = "perk_beginnerluck"
+PERK.Desc = "perk_beginnerluck"
 PERK.Category = "Defense"
 PERK.Model = "models/props_c17/doll01.mdl"
 PERK.Price = 500

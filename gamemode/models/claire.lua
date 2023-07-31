@@ -1,7 +1,7 @@
 local MODEL = {}
 
 MODEL.ClassName = "claire" 
-MODEL.Name = "Claire Redfield"
+MODEL.Name = "Claire_Redfield"
 MODEL.Category = "Models"
 MODEL.Model = "models/vinrax/player/re2/clare_normal.mdl"
 MODEL.Price = 100000

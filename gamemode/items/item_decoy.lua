@@ -4,8 +4,8 @@ decoytime = 6
 ITEM.ClassName = "item_decoy"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Decoy Bomb"
-ITEM.Desc = "Explodes after 6 seconds"
+ITEM.Name = "decoy"
+ITEM.Desc = "decoy"
 ITEM.Model = "models/weapons/w_grenade.mdl"
 
 ITEM.Price = 750
