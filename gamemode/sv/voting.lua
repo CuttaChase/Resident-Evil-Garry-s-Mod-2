@@ -94,7 +94,7 @@ function GM:DecideVotes()
 			end)
 
 		end
-
+		break
 	end
 end
 ------------------------------------

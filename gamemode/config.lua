@@ -14,7 +14,7 @@ GM.Config.StartingMoney = 500
 
 ----Zombies
 GM.Config.MaxZombies = 25 -- 22 is default : Higher Values will result in more lag. ADJUST WITH CAUTION
-GM.Config.ZombieSpawnTime = 6 -- !DO NOT ADJUST!
+GM.Config.ZombieSpawnTime = 7 -- !DO NOT ADJUST!
 
 ----Saving
 GM.Config.SaveFrequency = 15
