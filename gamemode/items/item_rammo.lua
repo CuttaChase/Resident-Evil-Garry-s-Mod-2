@@ -6,7 +6,7 @@ ITEM.WeaponClass = false
 
 ITEM.Name = "rifleammo"
 ITEM.Desc = "rifleammo"
-ITEM.Model = "models/items/boxsrounds.mdl"
+ITEM.Model = "models/props/re2_remake_submachine_gun_ammo.mdl"
 
 ITEM.Price = 30
 ITEM.Max = 3

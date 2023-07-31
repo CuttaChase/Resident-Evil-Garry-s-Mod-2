@@ -581,22 +581,16 @@ end
 
 GM.Music = {
 	Safe = {
-				{Sound = "/residentevil/hope_re.mp3", Length = 90},
-				{Sound = "/residentevil/fronthall_re.mp3", Length = 90},
-				{Sound = "/residentevil/safe_re.mp3", Length = 90},
-				{Sound = "/residentevil/library_re.mp3", Length = 90},
-				{Sound = "/residentevil/fronthall_re.mp3", Length = 90},
+				{Sound = "/reg/saferoom_1.mp3", Length = 60},
+				{Sound = "/reg/saferoom_2.mp3", Length = 60},
 			},
 	Battle = {
-				{Sound = "/residentevil/escape_re.mp3", Length = 90},
-				{Sound = "/residentevil/boss_re.mp3", Length = 90},
-				{Sound = "/residentevil/raccoon_re.mp3", Length = 90},
-				{Sound = "/residentevil/attack_re.mp3", Length = 90},
+				{Sound = "/reg/battle_1.mp3", Length = 60},
+				{Sound = "/reg/battle_2.mp3", Length = 60},
 			},
 	End = {
-			{Sound = "/reg/Results_01.mp3", Length = 120},
-			{Sound = "/reg/Results_02.mp3", Length = 94},
-			{Sound = "/reg/ree_theme.mp3", Length = 125},
+			{Sound = "/reg/results_01.mp3", Length = 60},
+			{Sound = "/reg/ree_theme.mp3", Length = 60},
 			},
 	}
 

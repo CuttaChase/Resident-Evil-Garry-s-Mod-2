@@ -6,12 +6,12 @@ ITEM.WeaponClass = false
 
 ITEM.Name = "gherb"
 ITEM.Desc = "gherb"
-ITEM.Model = "models/resident evil/item_herbgre.mdl"
+ITEM.Model = "models/props/re2_remake_herbs.mdl"
 
 ITEM.Price = 100
 ITEM.Max = 3
 
-ITEM.Category = "Supplies"
+ITEM.Category = "Admin"
 
 ITEM.Loot = true
 ITEM.LootChance = 0.4

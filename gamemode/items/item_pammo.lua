@@ -6,7 +6,7 @@ ITEM.WeaponClass = false
 
 ITEM.Name = "pistolammo"
 ITEM.Desc = "pistolammo"
-ITEM.Model = "models/re_magazine.mdl"
+ITEM.Model = "models/props/re2_remake_handgun_bullets.mdl"
 
 ITEM.Price = 10
 ITEM.Max = 3

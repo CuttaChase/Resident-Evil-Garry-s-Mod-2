@@ -10,19 +10,11 @@ function RecieveDataFromClient(l,ply)
 	VotingGamemodes[tostring(VoteGame)] = VotingGamemodes[tostring(VoteGame)] + 1
 	VotingDifficulty[tostring(VoteDifficulty)] = VotingDifficulty[tostring(VoteDifficulty)] + 1
 	-----
-	if VoteDifficulty == "Easy" then
-		VotingDifficulty["Easy"] = VotingDifficulty["Easy"] + 1
-	elseif VoteDifficulty == "Normal" then
-		VotingDifficulty["Normal"] = VotingDifficulty["Normal"] + 1
-	elseif VoteDifficulty == "Difficult" then
-		VotingDifficulty["Difficult"] = VotingDifficulty["Difficult"] + 1
-	elseif VoteDifficulty == "Expert" then
-		VotingDifficulty["Expert"] = VotingDifficulty["Expert"] + 1
-	elseif VoteDifficulty == "Suicidal" then
-		VotingDifficulty["Suicidal"] = VotingDifficulty["Suicidal"] + 1
-	end
+	print(VotingMaps[tostring(VoteMap)])
+	print(VoteMap)
 	-----
 	PrintTranslatedMessage(HUD_PRINTTALK,"player_voted_difficulty_on_map_and_mode",ply:Nick(),translate.ClientGet(ply,"difficulty_name_"..string.lower(VoteDifficulty)),VoteMap,translate.ClientGet(ply,"gametype_"..string.lower(VoteGame)))
+	print(ply:Nick().." Voted "..VoteDifficulty.." on "..VoteMap.." and gamemode "..VoteGame)
 end
 net.Receive("VoteTransfer",RecieveDataFromClient)
 
@@ -72,24 +64,37 @@ function GM:DecideVotes()
 	------------------------------
 	
 
-	if (!file.Exists("re2/rules/","DATA")) then
-		file.CreateDir("re2/rules/", "DATA")
-	end
+	----Define Player
+	local players = player.GetAll()
+	for i = 1, #players do
+
+		local ply = players[i]
+
+		if (!file.Exists("re2/rules/","DATA")) then
+			file.CreateDir("re2/rules/", "DATA")
+		end
+
+		if NewMap != nil then
 		
-	if NewMap != nil then
-	
-	timer.Simple(5,function() RunConsoleCommand("changelevel", tostring(NewMap) ) end)
-	PrintTranslatedMessage(HUD_PRINTTALK,"changing_map_will_gamemode_on_difficulty",NewMap,translate.ClientGet(ply,"gametype_"..string.lower(gamemode)),translate.ClientGet(ply,"difficulty_name_"..string.lower(difficulty)))
-	else
-	timer.Simple(10,function() 
-	RunConsoleCommand("changelevel", "re2_forest" )
-	gamemode = "Survivor"
-	end)
-	timer.Simple(2,function() 
-	PrintTranslatedMessage(HUD_PRINTTALK,"default_map_result") 
-	file.Write(FilePath,util.TableToKeyValues(VoteTable))
-	end)
-	
+			timer.Simple(5,function() 
+				RunConsoleCommand("changelevel", tostring(NewMap) ) 
+			end)
+			PrintTranslatedMessage(HUD_PRINTTALK,"changing_map_will_gamemode_on_difficulty",NewMap,translate.ClientGet(ply,"gametype_"..string.lower(gamemode)),translate.ClientGet(ply,"difficulty_name_"..string.lower(difficulty)))
+			print("Changing to "..NewMap.." in 5 seconds. The gamemode will be "..gamemode.." On "..difficulty)
+		else
+
+			timer.Simple(10,function() 
+			RunConsoleCommand("changelevel", "re2_forest" )
+			gamemode = "Survivor"
+			end)
+
+			timer.Simple(2,function() 
+				PrintTranslatedMessage(HUD_PRINTTALK,"default_map_result")  
+				file.Write(FilePath,util.TableToKeyValues(VoteTable))
+			end)
+
+		end
+
 	end
 end
 ------------------------------------

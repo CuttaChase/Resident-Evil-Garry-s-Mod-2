@@ -22,6 +22,11 @@ util.AddNetworkString( "REGmod.SendUpgradeData" )
 util.AddNetworkString( "REGmod.BuyModel" )
 util.AddNetworkString( "REGmod.EquipModel" )
 util.AddNetworkString( "REGmod.UnequipModel" )
+util.AddNetworkString( "REGmod.HealthUp" )
+util.AddNetworkString( "REGmod.AttackPower" )
+util.AddNetworkString( "REGmod.OpenLeaderboards" )
+util.AddNetworkString( "REGmod.AmmoRegen" )
+
 
 ---------------------------------------------------------------------------------MENUS
 
@@ -433,5 +438,49 @@ net.Receive( "REGmod.UnequipModel", function( len, ply )
 		end
 
 
+
+end )
+
+
+----------------------------------------skills
+
+net.Receive( "REGmod.HealthUp", function( len, ply )
+	
+	if ply:GetNWInt("SkillPoints") > 0 then
+		ply:PrintMessage(HUD_PRINTCENTER,"Health Up!")
+		ply:SetNWInt("HealthPoints", ply:GetNWInt("HealthPoints") + 1)
+		ply:SetNWInt("SkillPoints", ply:GetNWInt("SkillPoints") - 1)
+		ply:PrintMessage(HUD_PRINTCENTER,"You Have ".. ply:GetNWInt("SkillPoints") .. " Skill Points Left")
+	else
+		ply:PrintMessage(HUD_PRINTCENTER,"You Don't Have Enough Skill Points")
+	end
+
+end )
+
+
+
+net.Receive( "REGmod.AttackPower", function( len, ply )
+
+	if ply:GetNWInt("SkillPoints") > 0 then
+		ply:PrintMessage(HUD_PRINTCENTER,"Power Up!")
+		ply:SetNWInt("AttackPoints", ply:GetNWInt("AttackPoints") + 1)
+		ply:SetNWInt("SkillPoints", ply:GetNWInt("SkillPoints") - 1)
+		ply:PrintMessage(HUD_PRINTCENTER,"You Have ".. ply:GetNWInt("SkillPoints") .. " Skill Points Left")
+	else
+		ply:PrintMessage(HUD_PRINTCENTER,"You Don't Have Enough Skill Points")
+	end
+
+end )
+
+net.Receive( "REGmod.AmmoRegen", function( len, ply )
+
+	if ply:GetNWInt("SkillPoints") > 0 then
+		ply:PrintMessage(HUD_PRINTCENTER,"Ammo Regen Up!")
+		ply:SetNWInt("AmmoRegenPoints", ply:GetNWInt("AmmoRegenPoints") + 1)
+		ply:SetNWInt("SkillPoints", ply:GetNWInt("SkillPoints") - 1)
+		ply:PrintMessage(HUD_PRINTCENTER,"You Have ".. ply:GetNWInt("SkillPoints") .. " Skill Points Left")
+	else
+		ply:PrintMessage(HUD_PRINTCENTER,"You Don't Have Enough Skill Points")
+	end
 
 end )

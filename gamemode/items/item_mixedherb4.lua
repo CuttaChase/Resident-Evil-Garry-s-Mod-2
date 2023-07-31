@@ -6,7 +6,7 @@ ITEM.WeaponClass = false
 
 ITEM.Name = "mixedherb4"
 ITEM.Desc = "mixedherb4"
-ITEM.Model = "models/resident evil/item_herbgre.mdl"
+ITEM.Model = "models/props/re2_remake_herbs.mdl"
 
 ITEM.Price = 100
 ITEM.Max = 1

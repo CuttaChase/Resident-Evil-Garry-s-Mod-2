@@ -15,7 +15,7 @@ end
 
 function meta:HasPerk( perk ) 
 
-	for i=1, 2 do
+	for i=1, 3 do
 		if self.EquippedPerks[ i ] == perk then return true end
 	end
 	
@@ -39,7 +39,7 @@ function GM:Move( ply, mv )
 			end
 		end
 		if ply:GetMoveType() == MOVETYPE_FLY && ply:Team() != TEAM_HUNK && ply:GetMoveType() != MOVETYPE_WALK then
-			ply:SetVelocity(Vector(ply:GetVelocity().x * -0.1,ply:GetVelocity().y * -0.1, ply:GetVelocity().z * -0.1))
+			ply:SetVelocity(Vector(ply:GetVelocity() * -0.1))
 		end
 
 end
