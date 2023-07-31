@@ -5,7 +5,7 @@ ITEM.ClassName = "item_1873"
 ITEM.WeaponClass = "1873"
 
 ITEM.Name = "1873"
-ITEM.Desc = "Uses Rifle Ammo"
+ITEM.Desc = "1873"
 ITEM.Model = "models/weapons/w_annabelle.mdl"
 
 ITEM.Price = 6000
@@ -21,7 +21,7 @@ ITEM.Restrictions = false
 ITEM.Upgrades = {}
 ITEM.Upgrades[ "power" ] = {
 
-	GetDisp = function( level ) return ITEM.Upgrades[ "power" ].GetNew( level ) .. " DAMAGE" end,
+	GetDisp = function( level ) return translate.Format( "upgrade_stat_power", ITEM.Upgrades[ "power" ].GetNew( level ) ) end,
 	
 	GetCost = function( level ) return ( 500 + level*500 ) end,
 	
@@ -37,7 +37,7 @@ ITEM.Upgrades[ "power" ] = {
 
 ITEM.Upgrades[ "precision" ] = {
 
-	GetDisp = function( level ) return ITEM.Upgrades[ "precision" ].GetNew( level ) .. "m SPREAD" end,
+	GetDisp = function( level ) return translate.Format( "upgrade_stat_precision", ITEM.Upgrades[ "precision" ].GetNew( level ) ) end,
 	
 	GetCost = function( level ) return ( 200 + level*400 ) end,
 	
@@ -53,7 +53,7 @@ ITEM.Upgrades[ "precision" ] = {
 
 ITEM.Upgrades[ "capacity" ] = {
 
-	GetDisp = function( level ) return ITEM.Upgrades[ "capacity" ].GetNew( level ) .. " ROUNDS PER MAG" end,
+	GetDisp = function( level ) return translate.Format( "upgrade_stat_capacity", ITEM.Upgrades[ "capacity" ].GetNew( level ) ) end,
 	
 	GetCost = function( level ) return ( 200 + level*300 ) end,
 	

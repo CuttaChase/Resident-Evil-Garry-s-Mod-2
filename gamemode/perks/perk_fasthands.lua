@@ -2,8 +2,8 @@
 local PERK = {}
 
 PERK.ClassName = "perk_fasthands" 
-PERK.Name = "Fast Hands"
-PERK.Desc = "Reload and Shoot twice as fast"
+PERK.Name = "perk_fasthands"
+PERK.Desc = "perk_fasthands"
 PERK.Category = "Attack"
 PERK.Model = "models/Items/ammocrate_ar2.mdl"
 PERK.Price = 500000

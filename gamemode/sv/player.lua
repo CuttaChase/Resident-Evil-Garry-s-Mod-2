@@ -308,7 +308,7 @@ function GM:PlayerHurt(ply,attacker)
 				GAMEMODE:DoInfection(ply)
 			end
 		elseif ply:GetNWBool("Infected") == false then
-			--ply:PrintMessage(HUD_PRINTTALK,"resisted infection")
+			--ply:PrintTranslatedMessage(HUD_PRINTTALK,"resisted_infection")
 		end
 	elseif attacker:IsPlayer() && attacker:Team() == ply:Team() then
 		return false

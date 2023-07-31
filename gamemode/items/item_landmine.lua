@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_landmine"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Landmine"
-ITEM.Desc = "Proximity Detonation"
+ITEM.Name = "landmine"
+ITEM.Desc = "landmine"
 ITEM.Model = "models/props_combine/combine_mine01.mdl"
 
 ITEM.Price = 150

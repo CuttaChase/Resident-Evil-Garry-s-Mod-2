@@ -2,8 +2,8 @@
 local PERK = {}
 
 PERK.ClassName = "perk_explosives" 
-PERK.Name = "Explosives Expert"
-PERK.Desc = "Explosives have a bigger radius and are more powerful"
+PERK.Name = "perk_explosivesexpert"
+PERK.Desc = "perk_explosivesexpert"
 PERK.Category = "Attack"
 PERK.Model = "models/Items/ammocrate_ar2.mdl"
 PERK.Price = 25000

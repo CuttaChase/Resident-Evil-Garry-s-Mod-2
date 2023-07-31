@@ -21,7 +21,7 @@ net.Receive("InvTransfer", function( len )
 			MENU:MerchantPerks()
 		elseif MENU.LastMerc == "Upgrades" then
 			MENU:MerchantUpgrades()
-		elseif MENU.LastMerc == "Player Models" then
+		elseif MENU.LastMerc == "PlayerModels" then
 			MENU:MerchantPlayerModel()
 		end
 	end

@@ -2,8 +2,8 @@
 local PERK = {}
 
 PERK.ClassName = "perk_headhunter" 
-PERK.Name = "Head Hunter"
-PERK.Desc = "Regenerate 5 HP for every kill"
+PERK.Name = "perk_headhunter"
+PERK.Desc = "perk_headhunter"
 PERK.Category = "Defense"
 PERK.Model = "models/Gibs/HGIBS.mdl"
 PERK.Price = 100000

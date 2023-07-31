@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_c4"
 ITEM.WeaponClass = false
 
-ITEM.Name = "C4 Plastic Explosive"
-ITEM.Desc = "Remote Detonation"
+ITEM.Name = "C4"
+ITEM.Desc = "C4"
 ITEM.Model = "models/weapons/w_c4_planted.mdl"
 
 ITEM.Price = 150

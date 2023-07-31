@@ -185,13 +185,13 @@ function GUI_VoteMenu(voting)
 
 
 
-			local easy = GUI_Difficulty:AddLine( translate.Get("easy") ) -- Add our options
-    			local norm = GUI_Difficulty:AddLine( translate.Get("normal") )
-    			local diff = GUI_Difficulty:AddLine( translate.Get("difficult") )
-    			local exp = GUI_Difficulty:AddLine( translate.Get("expert") )
-    			local suc = GUI_Difficulty:AddLine( translate.Get("suicidal") )
-    			local det = GUI_Difficulty:AddLine( translate.Get("death") )
-    			local rac = GUI_Difficulty:AddLine( translate.Get("racooncity") )
+			local easy = GUI_Difficulty:AddLine( translate.Get("difficulty_name_easy") ) -- Add our options
+    			local norm = GUI_Difficulty:AddLine( translate.Get("difficulty_name_normal") )
+    			local diff = GUI_Difficulty:AddLine( translate.Get("difficulty_name_difficult") )
+    			local exp = GUI_Difficulty:AddLine( translate.Get("difficulty_name_expert") )
+    			local suc = GUI_Difficulty:AddLine( translate.Get("difficulty_name_suicidal") )
+    			local det = GUI_Difficulty:AddLine( translate.Get("difficulty_name_death") )
+    			local rac = GUI_Difficulty:AddLine( translate.Get("difficulty_name_racooncity") )
 
 
 
@@ -199,7 +199,7 @@ function GUI_VoteMenu(voting)
 
 			GUI_Difficulty:SetPos(210,100)
 
-			GUI_Difficulty:SelectItem(norm)
+			GUI_Difficulty:SelectItem(translate.Get(norm))
 
 
 
@@ -261,17 +261,17 @@ function GUI_VoteMenu(voting)
 
 					if j.Name != nil then
 
-						GUI_Gamemode_Selection:AddChoice(tostring(j.Name))
+						GUI_Gamemode_Selection:AddChoice(translate.Get("gametype_" .. string.lower(tostring(j.Name))))
 
 					else
 
-						GUI_Gamemode_Selection:AddChoice(tostring(h))
+						GUI_Gamemode_Selection:AddChoice(translate.Get("gametype_" .. string.lower(tostring(h))))
 
 					end
 
 				end
 
-			GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+			GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
 
 
@@ -313,9 +313,9 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+						GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -351,9 +351,9 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+						GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 
@@ -389,9 +389,9 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+						GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -427,9 +427,9 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+						GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -465,9 +465,9 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+						GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -503,9 +503,9 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+						GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -541,9 +541,9 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						GUI_Gamemode_Selection:ChooseOption( "Survivor" )
+						GUI_Gamemode_Selection:ChooseOption( translate.Get("gametype_survivor") )
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 
@@ -585,7 +585,7 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -627,7 +627,7 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -669,7 +669,7 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -711,7 +711,7 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -753,7 +753,7 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -795,7 +795,7 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", translate.Get("gametype_" .. string.lower(value))))
 
 					end
 					
@@ -837,7 +837,7 @@ function GUI_VoteMenu(voting)
 
 					else
 
-						LocalPlayer():ChatPrint("No maps available for ".. value)
+						LocalPlayer():ChatPrint(translate.Format("no_maps_for_gametype", value))
 
 					end
 
@@ -867,7 +867,7 @@ function GUI_VoteMenu(voting)
 
 			function GUI_Difficulty_Vote_Label:Think()
 
-				GUI_Difficulty_Vote_Label:SetText(translate.Get("you_selected").." "..VoteOption["Difficulty"])
+				GUI_Difficulty_Vote_Label:SetText(translate.Format("you_selected_difficulty", translate.Get("difficulty_name_" .. string.lower(VoteOption["Difficulty"]))))
 
 			end
 
@@ -887,7 +887,7 @@ function GUI_VoteMenu(voting)
 
 			function GUI_Map_Vote_Label:Think()
 
-				GUI_Map_Vote_Label:SetText(translate.Get("you_selected").." "..VoteOption["Map"])
+				GUI_Map_Vote_Label:SetText(translate.Format("you_selected_map", VoteOption["Map"]))
 
 			end
 
@@ -907,7 +907,7 @@ function GUI_VoteMenu(voting)
 
 			function GUI_Gamemode_Vote_Label:Think()
 
-				GUI_Gamemode_Vote_Label:SetText(translate.Get("you_selected").." "..VoteOption["Game"])
+				GUI_Gamemode_Vote_Label:SetText(translate.Format("you_selected_gamemode", translate.Get("gametype_" .. string.lower(VoteOption["Game"]))))
 
 			end
 

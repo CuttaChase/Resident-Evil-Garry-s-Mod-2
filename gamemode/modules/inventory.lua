@@ -119,8 +119,8 @@ function INVENTORY:Give( ply, itemtbl, slot )
 		//if ply:GetPos():Distance(rply:GetPos()) >> 90 then return end
 		if self:HasRoom( target, itemtbl, 1 ) then
 			self:Add( target, itemtbl.ClassName, 1 )
-			target:PrintMessage( HUD_PRINTTALK, ply:Nick().." gave you a ".. itemtbl.Name )
-			ply:PrintMessage( HUD_PRINTTALK, "You gave " .. target:Nick() .. " a ".. itemtbl.Name )
+			target:PrintTranslatedMessage( HUD_PRINTTALK, "x_gave_you_a_x_item", ply:Nick(), translate.ClientGet(target,"item_name_" .. itemtbl.Name ) )
+			ply:PrintTranslatedMessage( HUD_PRINTTALK, "you_gave_x_a_x_item", target:Nick(), translate.ClientGet(ply,"item_name_" .. itemtbl.Name ) )
 			self:RemoveItem( ply, itemtbl, slot )
 
 			-----------

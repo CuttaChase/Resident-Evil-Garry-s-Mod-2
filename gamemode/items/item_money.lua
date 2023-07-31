@@ -4,14 +4,14 @@ local ITEM = {}
 ITEM.ClassName = "item_money"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Money"
-ITEM.Desc = "DO NOT BUY!"
+ITEM.Name = "money"
+ITEM.Desc = "money"
 ITEM.Model = "models/food/hotdog.mdl"
 
 ITEM.Price = 1200
 ITEM.Max = 1
 
-ITEM.Category = "Admin"   --SET CATAGORY TO ADMIN FOR ANY ITEM AND IT WONT BE ADDED TO THE MERCHANT STORE.
+ITEM.Category = "Admin"   --SET CATEGORY TO ADMIN FOR ANY ITEM AND IT WONT BE ADDED TO THE MERCHANT STORE.
 
 ITEM.Loot = false
 ITEM.LootChance = 0.2
@@ -30,7 +30,7 @@ function ITEM:OnUsed( ply, slot )
 	local ranmon = table.Random(money)
 	--print(moneyvalue)
 	ply:AddMoney(ranmon)
-	ply:ChatPrint("You found $"..ranmon)
+	ply:ChatPrint(translate.ClientFormat(ply, "you_found_x_dollars", ranmon))
 	return true
 end
 

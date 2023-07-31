@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_spray"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Spray"
-ITEM.Desc = "Heals all wounds"
+ITEM.Name = "spray"
+ITEM.Desc = "spray"
 ITEM.Model = "models/firstaidspray.mdl"
 
 ITEM.Price = 300

@@ -12,68 +12,68 @@ MENU.MercTabs = {
 	[ "Storage" ] = function() MENU:MerchantStorage() end,
 	[ "Perks" ] = function() MENU:MerchantPerks() end,
 	[ "Upgrades" ] = function() MENU:MerchantUpgrades() end,
-	[ "Player Models" ] = function() MENU:MerchantPlayerModel() end,
+	[ "PlayerModels" ] = function() MENU:MerchantPlayerModel() end,
 }
 
 MENU.PaintTabs = {
 
-	[ "Storage" ] = function( pan, mw, mh )
+	[ "merchant_category_storage" ] = function( pan, mw, mh )
 			local ww, hh = MENU.MerchantFill:GetSize()
 			local posx, posy = MENU.MerchantFill:GetPos()
-			draw.SimpleTextOutlined( "Storage", "wOS.GenericLarge", posx + ww*0.7/2, hh*0.05, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get("storage_title"), "wOS.GenericLarge", posx + ww*0.7/2, hh*0.05, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 			surface.SetFont( "wOS.GenericLarge" )
-			local tx, ty = surface.GetTextSize( "Storage" )
+			local tx, ty = surface.GetTextSize( translate.Get("storage_title") )
 			surface.SetDrawColor( color_white )
 			surface.DrawLine( posx + ww*0.7/2 - tx/2, hh*0.05 + ty/2, posx + ww*0.7/2 + tx/2, hh*0.05 + ty/2 )
 
-			draw.SimpleTextOutlined( "Inventory", "wOS.GenericLarge", posx + ww*0.7 + ww*0.3/2, hh*0.05, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get("storage_inventory_title"), "wOS.GenericLarge", posx + ww*0.7 + ww*0.3/2, hh*0.05, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 			tx, ty = surface.GetTextSize( "Inventory" )
 			surface.SetDrawColor( color_white )
 			surface.DrawLine( posx + ww*0.7 + ww*0.3/2 - tx/2, hh*0.05 + ty/2, posx + ww*0.7 + ww*0.3/2 + tx/2, hh*0.05 + ty/2 )
 
 		end,
 
-	[ "Shop" ] = function( pan, mw, mh )
+	[ "merchant_category_shop" ] = function( pan, mw, mh )
 			local ww, hh = MENU.MerchantFill:GetSize()
 			local posx, posy = MENU.MerchantFill:GetPos()
-			draw.SimpleTextOutlined( table.Count( LocalPlayer().Chest ) .. " / " .. LocalPlayer():GetMaxStorage() .. " Storage Slots", "wOS.GenericMed", posx + ww*0.97, mh*0.05, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 0, color_white )
-			draw.SimpleTextOutlined( "Money: $" .. LocalPlayer():GetNWInt( "Money", 0 ), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
-			draw.SimpleTextOutlined( "Shop", "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+			draw.SimpleTextOutlined( translate.Format("shop_x_storage_slots", table.Count( LocalPlayer().Chest ), LocalPlayer():GetMaxStorage()), "wOS.GenericMed", posx + ww*0.97, mh*0.05, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Format("shop_current_money", LocalPlayer():GetNWInt( "Money", 0 )), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get("shop_title"), "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 			surface.SetFont( "wOS.GenericLarge" )
-			local tx, ty = surface.GetTextSize( "Shop" )
+			local tx, ty = surface.GetTextSize( translate.Get("shop_title") )
 			surface.SetDrawColor( color_white )
 			surface.DrawLine( posx + ww/2 - tx/2, mh*0.02 + ty, posx + ww/2 + tx/2, mh*0.02 + ty )
 		end,
 
-	[ "Perks" ] = function( pan, mw, mh )
+	[ "merchant_category_perks" ] = function( pan, mw, mh )
 			local ww, hh = MENU.MerchantFill:GetSize()
 			local posx, posy = MENU.MerchantFill:GetPos()
-			draw.SimpleTextOutlined( "Money: $" .. LocalPlayer():GetNWInt( "Money", 0 ), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
-			draw.SimpleTextOutlined( "Perk Menu", "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+			draw.SimpleTextOutlined( translate.Format("shop_current_money", LocalPlayer():GetNWInt( "Money", 0 )), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get("perkmenu_title"), "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 			surface.SetFont( "wOS.GenericLarge" )
-			local tx, ty = surface.GetTextSize( "Perk Menu" )
+			local tx, ty = surface.GetTextSize( translate.Get("perkmenu_title") )
 			surface.SetDrawColor( color_white )
 			surface.DrawLine( posx + ww/2 - tx/2, mh*0.02 + ty, posx + ww/2 + tx/2, mh*0.02 + ty )
 		end,
 
-	[ "Upgrades" ] = function( pan, mw, mh )
+	[ "merchant_category_upgrades" ] = function( pan, mw, mh )
 			local ww, hh = MENU.MerchantFill:GetSize()
 			local posx, posy = MENU.MerchantFill:GetPos()
-			draw.SimpleTextOutlined( "Money: $" .. LocalPlayer():GetNWInt( "Money", 0 ), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
-			draw.SimpleTextOutlined( "Weapon Upgrades", "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+			draw.SimpleTextOutlined( translate.Format("shop_current_money", LocalPlayer():GetNWInt( "Money", 0 )), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get("weapon_upgrades_title"), "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 			surface.SetFont( "wOS.GenericLarge" )
-			local tx, ty = surface.GetTextSize( "Weapon Upgrades" )
+			local tx, ty = surface.GetTextSize( translate.Get("weapon_upgrades_title") )
 			surface.SetDrawColor( color_white )
 			surface.DrawLine( posx + ww/2 - tx/2, mh*0.02 + ty, posx + ww/2 + tx/2, mh*0.02 + ty )
 		end,
 
-		[ "Player Models" ] = function( pan, mw, mh )
+		[ "merchant_category_playermodels" ] = function( pan, mw, mh )
 				local ww, hh = MENU.MerchantFill:GetSize()
 				local posx, posy = MENU.MerchantFill:GetPos()
-				draw.SimpleTextOutlined( "Money: $" .. LocalPlayer():GetNWInt( "Money", 0 ), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
-				draw.SimpleTextOutlined( "Player Models", "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Format("shop_current_money", LocalPlayer():GetNWInt( "Money", 0 )), "wOS.GenericMed", posx, mh*0.05, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("playermodels_title"), "wOS.GenericLarge", posx + ww/2, mh*0.02, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 				surface.SetFont( "wOS.GenericLarge" )
-				local tx, ty = surface.GetTextSize( "Player Models" )
+				local tx, ty = surface.GetTextSize( translate.Get("playermodels_title") )
 				surface.SetDrawColor( color_white )
 				surface.DrawLine( posx + ww/2 - tx/2, mh*0.02 + ty, posx + ww/2 + tx/2, mh*0.02 + ty )
 			end,
@@ -125,7 +125,7 @@ function MENU:MerchantMenu()
 		local mw, mmh = MENU.MerchantFill:GetSize()
 		local posx, posy = MENU.MerchantFill:GetPos()
 
-		draw.SimpleTextOutlined( self.LastMerc, "wOS.GenericLarge", posx + mw/2, hh*0.05, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get("merchant_category_" .. string.lower(self.LastMerc)), "wOS.GenericLarge", posx + mw/2, hh*0.05, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		surface.SetFont( "wOS.GenericLarge" )
 		local tx, ty = surface.GetTextSize( self.LastMerc )
 		surface.SetDrawColor( color_white )
@@ -177,9 +177,9 @@ function MENU:MerchantMenu()
 				surface.DrawRect( 0, 0, ww, hh )
 			MENU:EndStencil()
 			if SIDE_BUTTON:IsHovered() then
-				draw.SimpleTextOutlined( name, "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("merchant_category_" .. string.lower(name)), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 			else
-				draw.SimpleTextOutlined( name, "wOS.GenericMed", ww/2, hh/2, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
+				draw.SimpleTextOutlined( translate.Get("merchant_category_" .. string.lower(name)), "wOS.GenericMed", ww/2, hh/2, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
 			end
 		end
 		SIDE_BUTTON.DoClick = function()
@@ -200,9 +200,9 @@ function MENU:MerchantMenu()
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
 		if closebutt:IsHovered() then
-			draw.SimpleTextOutlined( "Close Menu", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get("merchant_menu_close"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		else
-			draw.SimpleTextOutlined( "Close Menu", "wOS.GenericMed", ww/2, hh/2, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
+			draw.SimpleTextOutlined( translate.Get("merchant_menu_close"), "wOS.GenericMed", ww/2, hh/2, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
 		end
 	end
 	closebutt.DoClick = function( pan )
@@ -260,9 +260,9 @@ function MENU:MerchantShop()
 				surface.DrawRect( 0, 0, mmw*0.69, mh*0.04 )
 			MENU:EndStencil()
 			if cppan:GetExpanded() then
-				draw.SimpleTextOutlined( cat, "wOS.GenericMed", mw/2, mh*0.015, color_black, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_black )
+				draw.SimpleTextOutlined( translate.Get("shop_item_category_" .. string.lower(cat)) or cat, "wOS.GenericMed", mw/2, mh*0.015, color_black, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_black )
 			else
-				draw.SimpleTextOutlined( cat, "wOS.GenericMed", mw/2, mh*0.015, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
+				draw.SimpleTextOutlined( translate.Get("shop_item_category_" .. string.lower(cat)) or cat, "wOS.GenericMed", mw/2, mh*0.015, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
 			end
 		end
 		cppan:SetStartHeight( mh*0.04 )
@@ -322,13 +322,13 @@ function MENU:MerchantShop()
 
 				if data.Restrictions then
 					if not data.Restrictions[ LocalPlayer():GetUserGroup() ] then
-						draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+						draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 						return
 					end
 				end
-				draw.SimpleTextOutlined( data.Name, "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
-				draw.SimpleTextOutlined( data.Desc, "wOS.GenericSmall", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
-				draw.SimpleTextOutlined( "Price: " .. data.Price, "wOS.GenericSmall", ww/2, hh*0.97, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_name_" .. data.Name), "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_desc_" .. data.Desc), "wOS.GenericSmall", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Format("item_price_x", data.Price), "wOS.GenericSmall", ww/2, hh*0.97, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 				if data.Max > 1 then
 					draw.SimpleTextOutlined( "x" .. data.Max, "wOS.GenericSmall", ww*0.95, hh*0.02, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP, 0, color_white )
 				end
@@ -356,7 +356,7 @@ function MENU:MerchantShop()
 					if not MENU.MainMerchant then self:Remove() end
 					if GetGlobalString("Mode") != "Merchant" and LocalPlayer():Team() == TEAM_HUNK then self:Remove() end
 				end
-				ItemButt.ItemIconOptions:AddOption( "Buy", function()
+				ItemButt.ItemIconOptions:AddOption( translate.Get("shop_buy_button"), function()
 					net.Start( "REGmod.BuyItem" )
 						net.WriteString( data.ClassName, 32 )
 					net.SendToServer()
@@ -405,12 +405,12 @@ function MENU:MerchantStorage()
 				surface.DrawRect( 0, 0, ww, hh )
 			MENU:EndStencil()
 			if i > LocalPlayer():GetNWInt( "MaxStorage", GAMEMODE.Config.InitialStorageSlots ) then
-				draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				return
 			end
 
 			if not LocalPlayer().Chest[ i ] then
-				draw.SimpleTextOutlined( "EMPTY", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_slot_empty"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				return
 			end
 		end
@@ -444,12 +444,12 @@ function MENU:MerchantStorage()
 				DataMask.Paint = function( pan, ww, hh )
 					if data.Restrictions then
 						if not data.Restrictions[ LocalPlayer():GetUserGroup() ] then
-							draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+							draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 							return
 						end
 					end
-					draw.SimpleTextOutlined( data.Name, "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
-					draw.SimpleTextOutlined( data.Desc, "wOS.GenericSmall", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+					draw.SimpleTextOutlined( translate.Get("item_name_" .. data.Name), "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+					draw.SimpleTextOutlined( translate.Get("item_desc_" .. data.Desc), "wOS.GenericSmall", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 					if amount > 1 then
 						draw.SimpleTextOutlined( "x" .. amount, "wOS.GenericSmall", ww*0.95, hh*0.02, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP, 0, color_white )
 					end
@@ -471,14 +471,14 @@ function MENU:MerchantStorage()
 						if GetGlobalString("Mode") != "Merchant" and LocalPlayer():Team() == TEAM_HUNK then self:Remove() end
 					end
 
-					ItemButt.ItemIconOptions:AddOption( "Equip", function()
+					ItemButt.ItemIconOptions:AddOption( translate.Get("storage_equip_button"), function()
 						net.Start( "REGmod.EquipItem" )
 							net.WriteInt( ItemButt.SlotPos, 32 )
 						net.SendToServer()
 						ItemButt.ItemIconOptions:Remove()
 					end )
 
-					ItemButt.ItemIconOptions:AddOption( "Sell", function()
+					ItemButt.ItemIconOptions:AddOption( translate.Get("storage_sell_button"), function()
 						net.Start( "REGmod.SellItem" )
 							net.WriteBool( false )
 							net.WriteInt( ItemButt.SlotPos, 32 )
@@ -503,7 +503,7 @@ function MENU:MerchantStorage()
 					if GetGlobalString("Mode") != "Merchant" and LocalPlayer():Team() == TEAM_HUNK then self:Remove() end
 				end
 
-				ItemButt.ItemIconOptions:AddOption( "Purchase Slot ( $" .. GAMEMODE.Config.StorageSlotPrice .. " )", function()
+				ItemButt.ItemIconOptions:AddOption( translate.Format("storage_purchase_slot", GAMEMODE.Config.StorageSlotPrice), function()
 					net.Start( "REGmod.PurchaseStorageSlot" )
 					net.SendToServer()
 					ItemButt.ItemIconOptions:Remove()
@@ -547,12 +547,12 @@ function MENU:MerchantStorage()
 			MENU:EndStencil()
 
 			if not LocalPlayer().inventory[ i ] then
-				draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				return
 			end
 
 			if LocalPlayer().inventory[ i ].Item == 0 then
-				draw.SimpleTextOutlined( "EMPTY", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_slot_empty"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				return
 			end
 
@@ -588,16 +588,16 @@ function MENU:MerchantStorage()
 					DataMask.Paint = function( pan, ww, hh )
 						if data.Restrictions then
 							if not data.Restrictions[ LocalPlayer():GetUserGroup() ] then
-								draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+								draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 								return
 							end
 						end
-						draw.SimpleTextOutlined( data.Name, "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
-						draw.SimpleTextOutlined( data.Desc, "wOS.GenericSmall", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+						draw.SimpleTextOutlined( translate.Get("item_name_" .. data.Name), "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+						draw.SimpleTextOutlined( translate.Get("item_desc_" .. data.Desc), "wOS.GenericSmall", ww/2, hh*0.15, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 						if amount > 1 then
 							draw.SimpleTextOutlined( "x" .. amount, "wOS.GenericSmall", ww*0.95, hh*0.02, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP, 0, color_white )
 						end
-						draw.SimpleTextOutlined( "SLOT " .. i, "wOS.GenericSmall", ww/2, hh*0.98, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+						draw.SimpleTextOutlined( translate.Format("item_slot_x", i), "wOS.GenericSmall", ww/2, hh*0.98, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 
 					end
 
@@ -617,14 +617,14 @@ function MENU:MerchantStorage()
 							if GetGlobalString("Mode") != "Merchant" and LocalPlayer():Team() == TEAM_HUNK then self:Remove() end
 						end
 
-						ItemButt.ItemIconOptions:AddOption( "Store", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("storage_store_button"), function()
 							net.Start( "REGmod.StoreItem" )
 								net.WriteInt( ItemButt.SlotPos, 32 )
 							net.SendToServer()
 							ItemButt.ItemIconOptions:Remove()
 						end )
 
-						ItemButt.ItemIconOptions:AddOption( "Sell", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("storage_sell_button"), function()
 							net.Start( "REGmod.SellItem" )
 								net.WriteBool( true )
 								net.WriteInt( ItemButt.SlotPos, 32 )
@@ -651,7 +651,7 @@ function MENU:MerchantStorage()
 					if GetGlobalString("Mode") != "Merchant" and LocalPlayer():Team() == TEAM_HUNK then self:Remove() end
 				end
 
-				ItemButt.ItemIconOptions:AddOption( "Purchase Slot ( $" .. GAMEMODE.Config.InventorySlotPrice .. " )", function()
+				ItemButt.ItemIconOptions:AddOption( translate.Format("storage_purchase_slot", GAMEMODE.Config.InventorySlotPrice), function()
 					net.Start( "REGmod.PurchaseInventorySlot" )
 					net.SendToServer()
 					ItemButt.ItemIconOptions:Remove()
@@ -703,9 +703,9 @@ function MENU:MerchantPerks()
 				surface.DrawRect( 0, 0, mmw*0.69, mh*0.04 )
 			MENU:EndStencil()
 			if cppan:GetExpanded() then
-				draw.SimpleTextOutlined( cat, "wOS.GenericMed", mw/2, mh*0.015, color_black, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_black )
+				draw.SimpleTextOutlined( translate.Get("perkmenu_perk_category_" .. string.lower(cat)) or cat, "wOS.GenericMed", mw/2, mh*0.015, color_black, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_black )
 			else
-				draw.SimpleTextOutlined( cat, "wOS.GenericMed", mw/2, mh*0.015, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
+				draw.SimpleTextOutlined( translate.Get("perkmenu_perk_category_" .. string.lower(cat)) or cat, "wOS.GenericMed", mw/2, mh*0.015, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
 			end
 		end
 		cppan:SetStartHeight( mh*0.04 )
@@ -762,7 +762,7 @@ function MENU:MerchantPerks()
 					DataMask:SetSize( uw*0.25, uh*0.96 )
 					DataMask:SetPos( uw*0.02, uh*0.02 )
 					DataMask.Paint = function( pan, ww, hh )
-						draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+						draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 					end
 				end
 			end
@@ -770,15 +770,15 @@ function MENU:MerchantPerks()
 			local DataMask = vgui.Create( "DPanel", UmbPanel )
 			DataMask:SetSize( uw, uh )
 			DataMask.Paint = function( pan, ww, hh )
-				draw.SimpleTextOutlined( data.Name, "wOS.GenericMed", ww*0.27, hh*0.03, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 0, color_white )
-				draw.SimpleTextOutlined( data.Desc, "wOS.GenericSmall", ww*0.27, hh/2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_name_" .. data.Name), "wOS.GenericMed", ww*0.27, hh*0.03, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_desc_" .. data.Desc), "wOS.GenericSmall", ww*0.27, hh/2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 0, color_white )
 
 				if not GAMEMODE.OwnedPerks[ data.ClassName ] then
-					draw.SimpleTextOutlined( "Price: " .. data.Price, "wOS.GenericSmall", ww*0.27, hh*0.97, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM, 0, color_white )
+					draw.SimpleTextOutlined( translate.Format("item_price_x", data.Price), "wOS.GenericSmall", ww*0.27, hh*0.97, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM, 0, color_white )
 				end
 
 				if LocalPlayer().EquippedPerks[1] == data.ClassName or LocalPlayer().EquippedPerks[2] == data.ClassName or LocalPlayer().EquippedPerks[3] == data.ClassName then
-					draw.SimpleTextOutlined( "EQUIPPED", "wOS.GenericMed", ww*0.93, hh*0.97, Color( 0, 200, 0, 255 ), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM, 0, Color( 0, 200, 0, 255 ) )
+					draw.SimpleTextOutlined( translate.Get("perkmenu_perk_equipped"), "wOS.GenericMed", ww*0.93, hh*0.97, Color( 0, 200, 0, 255 ), TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM, 0, Color( 0, 200, 0, 255 ) )
 				end
 
 			end
@@ -806,21 +806,21 @@ function MENU:MerchantPerks()
 					if GetGlobalString("Mode") != "Merchant" and LocalPlayer():Team() == TEAM_HUNK then self:Remove() end
 				end
 				if not GAMEMODE.OwnedPerks[ data.ClassName ] then
-					ItemButt.ItemIconOptions:AddOption( "Buy", function()
+					ItemButt.ItemIconOptions:AddOption( translate.Get("shop_buy_button"), function()
 						net.Start( "REGmod.BuyPerk" )
 							net.WriteString( data.ClassName, 32 )
 						net.SendToServer()
 					end )
 				else
 					if LocalPlayer().EquippedPerks[1] == data.ClassName or LocalPlayer().EquippedPerks[2] == data.ClassName or LocalPlayer().EquippedPerks[3] == data.ClassName then
-						ItemButt.ItemIconOptions:AddOption( "Unequip", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("perkmenu_unequip"), function()
 							net.Start( "REGmod.UnequipPerk" )
 								net.WriteString( data.ClassName, 32 )
 							net.SendToServer()
 						end )
 					end
 					if LocalPlayer().EquippedPerks[1] != data.ClassName then
-						ItemButt.ItemIconOptions:AddOption( "Equip Slot 1", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("perkmenu_equip_slot1"), function()
 							net.Start( "REGmod.EquipPerk" )
 								net.WriteInt( 1, 32 )
 								net.WriteString( data.ClassName, 32 )
@@ -828,7 +828,7 @@ function MENU:MerchantPerks()
 						end )
 					end
 					if LocalPlayer().EquippedPerks[2] != data.ClassName then
-						ItemButt.ItemIconOptions:AddOption( "Equip Slot 2", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("perkmenu_equip_slot2"), function()
 							net.Start( "REGmod.EquipPerk" )
 								net.WriteInt( 2, 32 )
 								net.WriteString( data.ClassName, 32 )
@@ -836,7 +836,7 @@ function MENU:MerchantPerks()
 						end )
 					end
 					if LocalPlayer().EquippedPerks[3] != data.ClassName then
-						ItemButt.ItemIconOptions:AddOption( "Equip Slot 3", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("perkmenu_equip_slot3"), function()
 							net.Start( "REGmod.EquipPerk" )
 								net.WriteInt( 3, 32 )
 								net.WriteString( data.ClassName, 32 )
@@ -877,11 +877,11 @@ function MENU:MerchantPerks()
 		DataMask:SetSize( uw, uh )
 		DataMask.Paint = function( pan, ww, hh )
 			if data then
-				draw.SimpleTextOutlined( data.Name, "wOS.GenericMed", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("item_name_" .. data.Name) or data.Name, "wOS.GenericMed", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 			else
-				draw.SimpleTextOutlined( "NO PERK SELECTED", "wOS.GenericMed", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("perkmenu_no_perk"), "wOS.GenericMed", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 			end
-			draw.SimpleTextOutlined( "SLOT " .. slot, "wOS.GenericSmall", ww/2, hh*0.9, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+			draw.SimpleTextOutlined( translate.Format("perkmenu_perk_slot_x", slot), "wOS.GenericSmall", ww/2, hh*0.9, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 		end
 		offsetx = offsetx + bw + padx
 	end
@@ -956,7 +956,7 @@ function MENU:MerchantUpgrades()
 				DataMask:SetSize( uw*0.25, uh*0.96 )
 				DataMask:SetPos( uw*0.02, uh*0.02 )
 				DataMask.Paint = function( pan, ww, hh )
-					draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+					draw.SimpleTextOutlined( translate.Get("item_slot_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				end
 			end
 		end
@@ -964,11 +964,11 @@ function MENU:MerchantUpgrades()
 		local DataMask = vgui.Create( "DPanel", UmbPanel )
 		DataMask:SetSize( uw, uh )
 		DataMask.Paint = function( pan, ww, hh )
-			draw.SimpleTextOutlined( data.Name, "wOS.GenericMed", ww*0.27, hh*0.03, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get("item_name_" .. data.Name), "wOS.GenericMed", ww*0.27, hh*0.03, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 0, color_white )
 
 
 			surface.SetFont( "wOS.GenericMed" )
-			local tx, ty = surface.GetTextSize( data.Name )
+			local tx, ty = surface.GetTextSize( translate.Get("item_name_" .. data.Name) )
 
 			local uposy = hh*0.09 + ty
 			local uposx = ww*0.27
@@ -980,17 +980,17 @@ function MENU:MerchantUpgrades()
 				tx, ty = surface.GetTextSize( "HEIGHT TESTER" )
 				if wupg[ name ].MaxLevel then
 					if wupg[ name ].MaxLevel <= level then
-						draw.SimpleTextOutlined( string.upper( name ) .. ": " .. wupg[ name ].GetDisp( level ) .. " ( MAX LEVEL )", "wOS.GenericSmall", uposx, uposy, color_white, align, TEXT_ALIGN_CENTER, 0, color_white )
+						draw.SimpleTextOutlined( translate.Format("upgrade_format_max", translate.Get("upgrade_name_" .. string.lower( name )), wupg[ name ].GetDisp( level )), "wOS.GenericSmall", uposx, uposy, color_white, align, TEXT_ALIGN_CENTER, 0, color_white )
 						uposy = uposy + hh*0.04 + ty
 						continue
 					end
 				end
-				draw.SimpleTextOutlined( string.upper( name ) .. ": " .. wupg[ name ].GetDisp( level ) .. " ( LEVEL " .. level .. " )", "wOS.GenericSmall", uposx, uposy, color_white, align, TEXT_ALIGN_CENTER, 0, color_white )
+				draw.SimpleTextOutlined( translate.Format("upgrade_format", translate.Get("upgrade_name_" .. string.lower( name )), wupg[ name ].GetDisp( level ), level), "wOS.GenericSmall", uposx, uposy, color_white, align, TEXT_ALIGN_CENTER, 0, color_white )
 				uposy = uposy + hh*0.04 + ty
 
 				if uposy + ty >= hh then
 					surface.SetFont( "wOS.GenericMed" )
-					tx, ty = surface.GetTextSize( data.Name )
+					tx, ty = surface.GetTextSize( translate.Get("item_name_" .. data.Name) )
 					align = TEXT_ALIGN_RIGHT
 					uposy = hh*0.09 + ty
 					uposx = ww*0.96
@@ -1029,7 +1029,7 @@ function MENU:MerchantUpgrades()
 					if dat.MaxLevel <= level then continue end
 				end
 
-				ItemButt.ItemIconOptions:AddOption( "Upgrade " .. name .. " ( $" .. dat.GetCost( level ) .. " )", function()
+				ItemButt.ItemIconOptions:AddOption( translate.Format("upgrade_button", translate.Get("upgrade_name_" .. string.lower( name ) ), dat.GetCost( level ) ), function()
 					net.Start( "REGmod.BuyUpgrade" )
 						net.WriteString( class, 32 )
 						net.WriteString( name, 32 )
@@ -1082,9 +1082,9 @@ function MENU:MerchantPlayerModel()
 				surface.DrawRect( 0, 0, mmw*0.69, mh*0.04 )
 			MENU:EndStencil()
 			if cppan:GetExpanded() then
-				draw.SimpleTextOutlined( cat, "wOS.GenericMed", mw/2, mh*0.015, color_black, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_black )
+				draw.SimpleTextOutlined( translate.Get("playermodels_model_category_" .. string.lower(cat)) or cat, "wOS.GenericMed", mw/2, mh*0.015, color_black, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_black )
 			else
-				draw.SimpleTextOutlined( cat, "wOS.GenericMed", mw/2, mh*0.015, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
+				draw.SimpleTextOutlined( translate.Get("playermodels_model_category_" .. string.lower(cat)) or cat, "wOS.GenericMed", mw/2, mh*0.015, Color( 155, 155, 155, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, Color( 155, 155, 155, 255 ) )
 			end
 		end
 		cppan:SetStartHeight( mh*0.04 )
@@ -1145,22 +1145,22 @@ function MENU:MerchantPlayerModel()
 
 				if data.Restrictions then
 					if not data.Restrictions[ LocalPlayer():GetUserGroup() ] then
-						draw.SimpleTextOutlined( "LOCKED", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+						draw.SimpleTextOutlined( translate.Get("playermodels_model_locked"), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 						return
 					end
 				end
 
 				if not GAMEMODE.OwnedModels[ data.ClassName ] then
-					draw.SimpleTextOutlined( "Price: " .. data.Price, "wOS.GenericSmall", ww/2, hh*0.97, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+					draw.SimpleTextOutlined( translate.Format("item_price_x", data.Price), "wOS.GenericSmall", ww/2, hh*0.97, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 				end
 
 				if LocalPlayer().EquippedModel == data.ClassName then
-					draw.SimpleTextOutlined( "EQUIPPED", "wOS.GenericMed", ww/2, hh/2, Color(0,255,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+					draw.SimpleTextOutlined( translate.Get("playermodels_model_equipped"), "wOS.GenericMed", ww/2, hh/2, Color(0,255,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 				end
-				draw.SimpleTextOutlined( data.Name, "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("model_name_" .. string.lower(data.Name) ), "wOS.GenericSmall", ww/2, hh*0.03, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP, 0, color_white )
 				if GAMEMODE.OwnedModels[ data.ClassName ] then
 					if LocalPlayer().EquippedModel == data.ClassName then return end
-				draw.SimpleTextOutlined( "Owned", "wOS.GenericSmall", ww/2, hh*0.97, Color(0,255,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+				draw.SimpleTextOutlined( translate.Get("playermodels_model_owned"), "wOS.GenericSmall", ww/2, hh*0.97, Color(0,255,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 			end
 			end
 
@@ -1182,7 +1182,7 @@ function MENU:MerchantPlayerModel()
 				ItemButt.ItemIconOptions = DermaMenu( UmbPanel )
 				ItemButt.ItemIconOptions:SetPos( gui.MouseX(), gui.MouseY() )
 				ItemButt.ItemIconOptions.Think = function( self )
-					if not MENU.LastMerc == "Player Models" then self:Remove() end
+					if not MENU.LastMerc == "PlayerModels" then self:Remove() end
 					if not MENU.MainMerchant then self:Remove() end
 					if GetGlobalString("Mode") != "Merchant" and LocalPlayer():Team() == TEAM_HUNK then self:Remove() end
 				end
@@ -1195,7 +1195,7 @@ function MENU:MerchantPlayerModel()
 					table.insert( ownmdls, mdl )
 				end
 				if !table.HasValue(ownmdls,data.ClassName) then
-					ItemButt.ItemIconOptions:AddOption( "Buy", function()
+					ItemButt.ItemIconOptions:AddOption( translate.Get("shop_buy_button"), function()
 						net.Start( "REGmod.BuyModel" )
 						net.WriteString( data.ClassName, 32 )
 						net.SendToServer()
@@ -1203,7 +1203,7 @@ function MENU:MerchantPlayerModel()
 
 				else
 					if LocalPlayer().EquippedModel == data.ClassName then
-						ItemButt.ItemIconOptions:AddOption( "Unequip", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("playermodels_unequip_button"), function()
 							thisismodelon = false
 							net.Start( "REGmod.UnequipModel" )
 								net.WriteString( data.ClassName, 32 )
@@ -1212,7 +1212,7 @@ function MENU:MerchantPlayerModel()
 						end )
 					end
 					if LocalPlayer().EquippedModel != data.ClassName then
-						ItemButt.ItemIconOptions:AddOption( "Equip", function()
+						ItemButt.ItemIconOptions:AddOption( translate.Get("playermodels_equip_button"), function()
 							print("equip model")
 							thisismodelon = true
 							net.Start( "REGmod.EquipModel" )
@@ -1222,7 +1222,7 @@ function MENU:MerchantPlayerModel()
 						end )
 					end
 				end
-				ItemButt.ItemIconOptions:AddOption( "Preview", function()
+				ItemButt.ItemIconOptions:AddOption( translate.Get("playermodels_preview_button"), function()
 					local PreviewModelPanel = vgui.Create( "DPanel", catlist )
 								PreviewModelPanel:SetPos( uw/2, uh/2.5 )
 								PreviewModelPanel:SetSize( uw, uh )

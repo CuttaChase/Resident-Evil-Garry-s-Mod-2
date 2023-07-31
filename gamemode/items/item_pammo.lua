@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_pammo"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Pistol Ammo"
-ITEM.Desc = "30 rounds"
+ITEM.Name = "pistolammo"
+ITEM.Desc = "pistolammo"
 ITEM.Model = "models/re_magazine.mdl"
 
 ITEM.Price = 10

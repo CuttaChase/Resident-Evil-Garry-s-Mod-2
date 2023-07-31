@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_bherb"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Blue Herb"
-ITEM.Desc = "Its A Weird Thing"
+ITEM.Name = "bherb"
+ITEM.Desc = "bherb"
 ITEM.Model = "models/resident evil/item_herbblu.mdl"
 
 ITEM.Price = 100
@@ -37,7 +37,7 @@ function ITEM:OnUsed( ply )
 		return true
 	end
 	if not ply:GetNWBool( "Infected", false ) then
-		ply:PrintMessage(HUD_PRINTTALK,"You are not infected!") 
+		ply:PrintTranslatedMessage(HUD_PRINTTALK,"you_are_not_infected") 
 		return false
 	end
 

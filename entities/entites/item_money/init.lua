@@ -45,6 +45,6 @@ function ENT:Use(activator,caller)
 	self.Entity:SetUseType( SIMPLE_USE )
 	local ranmon = table.Random(money)
 	caller:AddMoney(ranmon)
-	caller:ChatPrint("You found $"..ranmon)
+	caller:ChatPrint(translate.ClientGet("you_found_x_dollars", ranmon))
 	self.Entity:Remove()
 end

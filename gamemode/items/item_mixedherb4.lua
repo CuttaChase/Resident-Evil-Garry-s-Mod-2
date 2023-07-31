@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_mixedherb4"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Mixed Herb G/G/G"
-ITEM.Desc = "Heals Complete With Overshield"
+ITEM.Name = "mixedherb4"
+ITEM.Desc = "mixedherb4"
 ITEM.Model = "models/resident evil/item_herbgre.mdl"
 
 ITEM.Price = 100

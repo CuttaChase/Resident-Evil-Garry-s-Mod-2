@@ -4,8 +4,8 @@ local ITEM = {}
 ITEM.ClassName = "item_mixedherb2"
 ITEM.WeaponClass = false
 
-ITEM.Name = "Mixed Herb R/G/B"
-ITEM.Desc = "Heals and Removes Everything"
+ITEM.Name = "mixedherb2"
+ITEM.Desc = "mixedherb2"
 ITEM.Model = "models/resident evil/item_herbgre.mdl"
 
 ITEM.Price = 100
@@ -26,7 +26,7 @@ function ITEM:OnUsed( ply )
 		ply:EmitSound("items/smallmedkit1.wav",110,100)
 		ply:SetNWBool("Infected", false) 
 		ply:SetNWInt("InfectedPercent", 0) 
-		ply:PrintMessage(HUD_PRINTTALK,"Infection Cured") 
+		ply:PrintTranslatedMessage(HUD_PRINTTALK,"infection_cured") 
 		ply:EmitSound("HL1/fvox/antidote_shot.wav",110,100)
 		if ply:Team() == TEAM_HUNK then
 			if ply:Health() >= 51 and ply:Health() <= 74 then

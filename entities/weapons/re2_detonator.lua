@@ -4,7 +4,7 @@ if (CLIENT) then
 	SWEP.ViewModelFOV	= 50
 	SWEP.ViewModelFlip		= false
 	SWEP.CSMuzzleFlashes	= false
-	SWEP.PrintName			= "C4 Plastic Explosives Detonater"			
+	SWEP.PrintName			= "C4 Plastic Explosives Detonator"		
 	SWEP.Author				= "Noobulator"
 	SWEP.Slot				= 0
 	SWEP.SlotPos			= 2
