@@ -35,14 +35,14 @@ GM.Config.MerchantTime = 120
 GM.Config.VotingTime = 55
 
 ----ZombieHealth
-GM.Config.ZombieMaxHealth = 400
-GM.Config.ZombieHealth = 50
+GM.Config.ZombieMaxHealth = 200 -- each difficulty multiplies this
+GM.Config.ZombieHealth = 30 -- each difficulty multiplies this
 
 
 ----Reward Money
 GM.Config.Escape = 300
 GM.Config.Boss = 300
-GM.Config.Doom = 2500
+GM.Config.Doom = 900
 
 GM.Config.MerchantOpen = {
 	"06_goodthingsonsale.wav",
@@ -61,52 +61,49 @@ GM.Config.MerchantBuy = {
 }
 
 itemtypes = {
-["item_c4"] = "C4",
-["item_landmine"] = "Landmine",
-["item_decoy"] = "Decoy Bomb",
-["item_crate"] = "Crate",
-["item_rammo"] = "Rifle Ammo",
-["item_pammo"] = "Pistol Ammo",
-["item_gherb"] = "Green Herb",
-["item_bherb"] = "Blue Herb",
-["item_rherb"] = "Red Herb",
-["item_money"] = "Money",
-["item_tcure"] = "T-Virus Cure",
-["item_spray"] = "Health Spray",
-["item_mammo"] = "SMG Ammo",
-["item_3ammo"] = "Magnum Ammo",
-["item_bammo"] = "Shotgun Ammo",
-["item_mixedherb1"] = "G+R Herb",
-["item_mixedherb2"] = "R+G+B Herb",
-["item_mixedherb3"] = "G+G Herb",
-["item_mixedherb4"] = "G+G+G Herb",
-["item_barricade"] = "Barricade",
+	["item_c4"] = "C4",
+	["item_landmine"] = "Landmine",
+	["item_decoy"] = "Decoy Bomb",
+	["item_crate"] = "Crate",
+	["item_rammo"] = "Rifle Ammo",
+	["item_pammo"] = "Pistol Ammo",
+	["item_gherb"] = "Green Herb",
+	["item_bherb"] = "Blue Herb",
+	["item_rherb"] = "Red Herb",
+	["item_money"] = "Money",
+	["item_tcure"] = "T-Virus Cure",
+	["item_spray"] = "Health Spray",
+	["item_mammo"] = "SMG Ammo",
+	["item_3ammo"] = "Magnum Ammo",
+	["item_bammo"] = "Shotgun Ammo",
+	["item_mixedherb1"] = "G+R Herb",
+	["item_mixedherb2"] = "R+G+B Herb",
+	["item_mixedherb3"] = "G+G Herb",
+	["item_mixedherb4"] = "G+G+G Herb",
+	["item_barricade"] = "Barricade",
 }
 weapontypes = {
-	["item_1873"]="1897",
-	["item_1873"]="1873",
-	["item_bauto5"]="Browning Auto-5",
-	["item_bhp"]="BHP",
-	["item_c96"]="C96",
-	["item_colt"]="Colt",
-	["item_fal"]="FAL",
-	["item_g3"]="G3",
-	["item_fnc"]="FNC",
-	["item_gyrojet"]="GyroJet",
-	["item_m3r"]="M3R",
-	["item_m14"]="M14",
-	["item_m16"]="M16",
-	["item_m49"]="M49",
-	["item_m60"]="M60",
-	["item_m1921"]="M1921",
-	["item_mk22"]="MK22",
-	["item_mp5sd"]="MP5SD",
-	["item_mp40"]="MP40",
-	["item_rpk"]="RPK"
+	["weapon_ak47"]="AK47",
+	["weapon_deagle"]="Deagle",
+	["weapon_glauncher"]="Grenade Launcher",
+	["weapon_minigun"]="Minigun",
+	["weapon_mp5"]="MP5",
+	["weapon_p90"]="P90",
+	["weapon_pumpshot"]="Pump Shotgun",
+	["weapon_quadrpg"]="Rocket Launcher",
+	["weapon_striker"]="Striker 7",
+	["weapon_usp"]="USP",
+	["weapon_ragerev"]="Raging Revolver",
+	["weapon_spas12"]="Spas 12",
+	["weapon_m4"]="Colt M4A1 Carbine",
+	["weapon_glock18"]="Glock 18",
+	["weapon_p228"]="Sauer P228",
+	["weapon_ump"]="K&M UMP45",
 }
 
 zombtable = {
 	["snpc_shambler"] = "Shambler",
+	["snpc_shambler_fast"] = "Fast Shambler",
  	["snpc_zombie_dog"] = "Zombie Dog",
 	["snpc_zombie_nemesis"] = "Nemesis"
 }
@@ -306,8 +303,8 @@ GamemodeListTable = {
 GM.ZombieData2 = {}
 GM.ZombieData2["Easy"] = {
 	ItemChance = 60,
-	ZombieHealth = 5,
-	ZombieMaxHealth = 40,
+	ZombieHealth = GM.Config.ZombieHealth,
+	ZombieMaxHealth = GM.Config.ZombieMaxHealth,
 	Modifier = 1,
 }
 
@@ -316,32 +313,32 @@ GM.ZombieData2["Easy"] = {
 GM.ZombieData = {}
 GM.ZombieData["Easy"] = {
 	ItemChance = 60,
-	ZombieHealth = 5,
-	ZombieMaxHealth = 40,
+	ZombieHealth = GM.Config.ZombieHealth,
+	ZombieMaxHealth = GM.Config.ZombieMaxHealth,
 	Modifier = 1,
 }
 GM.ZombieData["Normal"] = {
 	ItemChance = 80,
-	ZombieHealth = 20,
-	ZombieMaxHealth = 80,
+	ZombieHealth = GM.Config.ZombieHealth*2,
+	ZombieMaxHealth = GM.Config.ZombieMaxHealth*2,
 	Modifier = 2,
 }
 GM.ZombieData["Difficult"] = {
 	ItemChance = 100,
-	ZombieHealth = 80,
-	ZombieMaxHealth = 160,
+	ZombieHealth = GM.Config.ZombieHealth*3,
+	ZombieMaxHealth = GM.Config.ZombieMaxHealth*3,
 	Modifier = 3,
 }
 GM.ZombieData["Expert"] = {
 	ItemChance = 120,
-	ZombieHealth = 160,
-	ZombieMaxHealth = 300,
+	ZombieHealth = GM.Config.ZombieHealth*4,
+	ZombieMaxHealth = GM.Config.ZombieMaxHealth*4,
 	Modifier = 4,
 }
 GM.ZombieData["Suicidal"] = {
 	ItemChance = 140,
-	ZombieHealth = 300,
-	ZombieMaxHealth = 500,
+	ZombieHealth = GM.Config.ZombieHealth*5,
+	ZombieMaxHealth = GM.Config.ZombieMaxHealth*5,
 	Modifier = 5,
 }
 
@@ -363,10 +360,10 @@ function GM:SpawningZombies()
 						Blocked = true
 					end
 				end
-					local diffadjust1 = (table.Count( player.GetAll()) * 15)
-					local diffadjust2 = (GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].Modifier * 50)
+					local diffadjust1 = (table.Count( player.GetAll()) * 50)
+					local diffadjust2 = (GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].Modifier * 80)
 					--local Chance = math.random(0,(950 - ( diffadjust2 + diffadjust1 ) ) )
-					local Chance = math.random(0,(950 - ( diffadjust1 ) ) )
+					local Chance = math.random(0,(1125 - ( diffadjust1 + diffadjust2 ) ) )
 					local minichance = math.random(0,2000)
 
 					--[[
@@ -393,11 +390,11 @@ function GM:SpawningZombies()
 
 
 					if NumZombies <= GAMEMODE.Config.MaxZombies then
-						if minichance >= 1950 && Chance <= 400 && !Blocked then
+						if minichance >= 1930 && Chance <= 400 then
 							local ent = ents.Create("snpc_zombie_dog") --GAMEMODE.ZombieData.Zombies[math.random(1,#GAMEMODE.ZombieData.Zombies)])
 							local min = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieHealth / 5
 							local max = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieMaxHealth / 5
-							ent:SetHealth(math.random(min, max + (table.Count( player.GetAll()) * 20) ))
+							ent:SetHealth(math.random(min + (table.Count( player.GetAll()) * 10), max + (table.Count( player.GetAll()) * 10) ))
 							ent:SetPos(h:GetPos())
 							ent:Spawn()
 							NumZombies = NumZombies + 1
@@ -405,11 +402,11 @@ function GM:SpawningZombies()
 					end
 
 					if NumZombies <= GAMEMODE.Config.MaxZombies - 2 then
-						if !Blocked && Chance <= 400 then
+						if !Blocked then
 							local ent = ents.Create("snpc_shambler") --GAMEMODE.ZombieData.Zombies[math.random(1,#GAMEMODE.ZombieData.Zombies)])
 							local min = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieHealth 
 							local max = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieMaxHealth 
-							ent:SetHealth(math.random(min, max + (table.Count( player.GetAll()) * 20) ))
+							ent:SetHealth(math.random(min + (table.Count( player.GetAll()) * 10), max + (table.Count( player.GetAll()) * 15)) )
 							ent:SetPos(h:GetPos())
 							ent:Spawn()
 							NumZombies = NumZombies + 1
@@ -418,11 +415,11 @@ function GM:SpawningZombies()
 					
 
 					if NumZombies <= GAMEMODE.Config.MaxZombies then
-						if minichance <= 50 && Chance <= 400 && !Blocked then
+						if minichance <= 90 && Chance <= 400 then
 							local ent = ents.Create("snpc_shambler_fast") --GAMEMODE.ZombieData.Zombies[math.random(1,#GAMEMODE.ZombieData.Zombies)])
 							local min = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieHealth / 2
 							local max = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieMaxHealth / 2
-							ent:SetHealth(math.random(min, max + (table.Count( player.GetAll()) * 20) ))
+							ent:SetHealth(math.random(min + (table.Count( player.GetAll()) * 10), max + (table.Count( player.GetAll()) * 10) ))
 							ent:SetPos(h:GetPos())
 							ent:Spawn()
 							NumZombies = NumZombies + 1
@@ -434,7 +431,7 @@ function GM:SpawningZombies()
 							local ent = ents.Create("snpc_zombie_nemesis") --GAMEMODE.ZombieData.Zombies[math.random(1,#GAMEMODE.ZombieData.Zombies)])
 							local min = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieHealth
 							local max = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieMaxHealth
-							ent:SetHealth(math.random(min, max + (table.Count( player.GetAll()) * 100) ))
+							ent:SetHealth(math.random(min + (table.Count( player.GetAll()) * 10), max + (table.Count( player.GetAll()) * 100) ))
 							ent:SetPos(h:GetPos())
 							ent:Spawn()
 							NumZombies = NumZombies + 1
@@ -467,11 +464,12 @@ function GM:SpawningZombies2()
 						Blocked = true
 					end
 				end
-				local diffadjust1 = (table.Count( player.GetAll()) * 15)
-				local diffadjust2 = (GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].Modifier * 50)
-				--local Chance = math.random(0,(950 - ( diffadjust2 + diffadjust1 ) ) )
-				local Chance = math.random(0,(950 - ( diffadjust1 ) ) )
-				local minichance = math.random(0,2000)
+
+					local diffadjust1 = (table.Count( player.GetAll()) * 50)
+					local diffadjust2 = (GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].Modifier * 80)
+					--local Chance = math.random(0,(950 - ( diffadjust2 + diffadjust1 ) ) )
+					local Chance = math.random(0,(1125 - ( diffadjust1 + diffadjust2 ) ) )
+					local minichance = math.random(0,2000)
 
 				--[[
 					-----------
@@ -497,11 +495,11 @@ function GM:SpawningZombies2()
 
 
 				if NumZombies <= GAMEMODE.Config.MaxZombies then
-					if minichance >= 1800 && Chance <= 400 && !Blocked then
+					if minichance >= 1800 && Chance <= 400 then
 						local ent = ents.Create("snpc_zombie_dog2") --GAMEMODE.ZombieData.Zombies[math.random(1,#GAMEMODE.ZombieData.Zombies)])
 						local min = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieHealth / 5
 						local max = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieMaxHealth / 5
-						ent:SetHealth(math.random(min, max + (table.Count( player.GetAll()) * 20) ))
+						ent:SetHealth(math.random(min + (table.Count( player.GetAll()) * 10), max + (table.Count( player.GetAll()) * 10) ))
 						ent:SetPos(h:GetPos())
 						ent:Spawn()
 						NumZombies = NumZombies + 1
@@ -509,11 +507,11 @@ function GM:SpawningZombies2()
 				end
 
 				if NumZombies <= GAMEMODE.Config.MaxZombies - 2 then
-					if !Blocked && Chance <= 400 then
+					if !Blocked then
 						local ent = ents.Create("snpc_shambler2") --GAMEMODE.ZombieData.Zombies[math.random(1,#GAMEMODE.ZombieData.Zombies)])
 						local min = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieHealth 
 						local max = GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ZombieMaxHealth 
-						ent:SetHealth(math.random(min, max + (table.Count( player.GetAll()) * 20) ))
+						ent:SetHealth(math.random(min + (table.Count( player.GetAll()) * 10), max + (table.Count( player.GetAll()) * 15)) )
 						ent:SetPos(h:GetPos())
 						ent:Spawn()
 						NumZombies = NumZombies + 1
@@ -716,10 +714,12 @@ GM.Gamemode = {}
 
 		StartFunction = function()
 							
-							local difficultyadjust = GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 50
-							local playeradjust = table.Count(team.GetPlayers(TEAM_HUNK)) * 15
-							local togetheradjust = playeradjust + difficultyadjust
-							local modifier = togetheradjust
+							local gm = GAMEMODE
+							local difficulty = gm.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier
+							local difficultyadjust = difficulty * (math.random(35,50))
+							local playeradjust = #team.GetPlayers(TEAM_HUNK) * 16
+							local modifier = playeradjust + difficultyadjust
+
 							SetGlobalInt("DeadZombieKillNumber", GetGlobalInt("DeadZombieKillNumber") + modifier)
 							timer.Create("TimeSurvivedTimer",1,0, function()
 							SetGlobalInt("RE2_GameTime", GetGlobalInt("RE2_GameTime") + 1)
@@ -1097,7 +1097,7 @@ GM.Gamemode = {}
 			reward = reward * GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier
 			--PrintTranslatedMessage( HUD_PRINTTALK, leader:Nick(), "won", reward )
 			PrintTranslatedMessage( HUD_PRINTTALK, "the_winner_is_x_and_won_x_reward", leader:Nick(), reward )
-			leader:SetNWInt("Money", leader:GetNWInt("Money") + (math.Round(table.Count(player.GetAll())*350)))
+			leader:SetNWInt("Money", leader:GetNWInt("Money") + reward)
 		end,
 		}
 
@@ -1149,10 +1149,10 @@ GM.Gamemode = {}
             ent:SetPos(table.Random(ents.FindByClass("ent_zombie_spawn")):GetPos())
             ent:Spawn()
 			
-			local min = ( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier )+table.Count(player.GetAll())*1500
-			local max = ( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier )+table.Count(player.GetAll())*3200
+			local min = (( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 5) * (table.Count(player.GetAll()) * 1000 ))
+			local max = (( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 10) * (table.Count(player.GetAll()) * 1000 ))
 			ent:SetHealth(math.random(min, max ) )
-			SetGlobalInt("Re2_CountDown", 600)
+			SetGlobalInt("Re2_CountDown", 300)
 			timer.Create("Re2_CountDownMercenaries",1,0, function()
 						SetGlobalInt("RE2_GameTime", GetGlobalInt("RE2_GameTime") + 1)
 						SetGlobalInt("Re2_CountDown", GetGlobalInt("Re2_CountDown") - 1)
@@ -1186,7 +1186,7 @@ GM.Gamemode = {}
 		end,
 
 		RewardFunction = function()
-			local reward = math.Round( #player.GetAll() * GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * GAMEMODE.Config.Boss )
+			local reward = math.Round( ( #player.GetAll() * GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier ) * GAMEMODE.Config.Boss )
 			if (GetGlobalString("RE2_Game") == "Boss") && GetGlobalInt("RE2_DeadZombies") >= 2 then
 				PrintTranslatedMessage( HUD_PRINTTALK, "boss_killed", reward )
 				for k,v in pairs(player.GetAll()) do

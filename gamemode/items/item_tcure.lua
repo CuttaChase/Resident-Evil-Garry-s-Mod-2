@@ -6,7 +6,7 @@ ITEM.WeaponClass = false
 
 ITEM.Name = "tcure"
 ITEM.Desc = "tcure"
-ITEM.Model = "models/items/healthkit.mdl"
+ITEM.Model = "models/props/re2_remake_orion_gun_antibody_shell.mdl"
 
 ITEM.Price = 500
 ITEM.Max = 1

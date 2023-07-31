@@ -19,11 +19,12 @@ function ENT:SetAmount(varAmount)
 end
 
 function ENT:Use(activator, caller)
---[[
-	if activator:IsPlayer()  && GetGlobalString("Mode") == "Merchant" && activator.CanUse then
-		activator:ConCommand("RE2_ChestMenu")
+
+	if activator:IsPlayer() && GetGlobalString("Mode") == "Merchant" && activator.CanUse then
+		net.Start( "REGmod.OpenMerchant" )
+		net.Send(activator)
 		activator.CanUse = false
 		timer.Simple(1, function() activator.CanUse = true end)
 	end
---]]
+
 end

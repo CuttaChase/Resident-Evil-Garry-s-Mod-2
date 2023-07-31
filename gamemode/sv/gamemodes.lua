@@ -15,9 +15,9 @@ function GM:EstablishRules()
 				if chance == 1 then
 					SetGlobalString( "RE2_Game", "Survivor" )
 				elseif chance == 2 then
-					SetGlobalString( "RE2_Game", "Survivor" )
+					SetGlobalString( "RE2_Game", "VIP" )
 				elseif chance == 3 then
-					SetGlobalString( "RE2_Game", "Survivor" )
+					SetGlobalString( "RE2_Game", "Mercenaries" )
 				end
 			end
 	else
@@ -28,9 +28,9 @@ function GM:EstablishRules()
 		if chance == 1 then
 			SetGlobalString( "RE2_Game", "Survivor" )
 		elseif chance == 2 then
-			SetGlobalString( "RE2_Game", "Survivor" )
+			SetGlobalString( "RE2_Game", "VIP" )
 		elseif chance == 3 then
-			SetGlobalString( "RE2_Game", "Survivor" )
+			SetGlobalString( "RE2_Game", "Mercenaries" )
 		end
 	end
 
@@ -92,12 +92,20 @@ function GM:BaseStart()
 			end
 		end
 	end
+
+	for _, hunk in pairs(ents.GetAll()) do
+		if hunk:IsPlayer() && hunk.EquippedModel == "hunk" then
+			sound.Play( HunkVoiceLine5, hunk:GetPos() )
+			if GetGlobalString("RE2_Game") == "Escape" then
+				sound.Play( HunkVoiceLine1, hunk:GetPos() )
+			end
+		end
+	end
 	--------------------------------------------------
+	local zombietime = GAMEMODE.Config.ZombieSpawnTime - GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier
 	if (GetGlobalString("RE2_Game") == "Boss") then
-		local zombietime2 = ( GAMEMODE.Config.ZombieSpawnTime - GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].Modifier )
-		timer.Create("SpawningZombies2",zombietime2,0, function() GAMEMODE:SpawningZombies2() end )
+		timer.Create("SpawningZombies2",zombietime,0, function() GAMEMODE:SpawningZombies2() end )
 	else
-		local zombietime = ( GAMEMODE.Config.ZombieSpawnTime - GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].Modifier )
 		timer.Create("SpawningZombies",zombietime,0, function() GAMEMODE:SpawningZombies() end )
 	end
 	---- map Triggers
@@ -120,9 +128,14 @@ function GM:BaseEndGame()
 
 
 	--------Voice Actors Lines Audio------------------
-	for _, leon in pairs(ents.GetAll()) do
-		if leon:IsPlayer() && leon.EquippedModel == "adawong" && leon:Team() == TEAM_HUNK then
-			sound.Play( AdaVoiceLine3, leon:GetPos() )
+	for _, ada in pairs(ents.GetAll()) do
+		if ada:IsPlayer() && ada.EquippedModel == "adawong" && ada:Team() == TEAM_HUNK then
+			sound.Play( AdaVoiceLine3, ada:GetPos() )
+		end
+	end	
+	for _, hunk in pairs(ents.GetAll()) do
+		if hunk:IsPlayer() && hunk.EquippedModel == "hunk" && hunk:Team() == TEAM_HUNK then
+			sound.Play( HunkVoiceLine4, hunk:GetPos() )
 		end
 	end	
 	--------------------------------------------------

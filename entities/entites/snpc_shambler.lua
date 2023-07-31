@@ -2,14 +2,20 @@ AddCSLuaFile()
 
 ENT.Base             = "base_nextbot"
 ENT.Spawnable        = true
-ENT.BaseDamage 		= math.random(2,6)
+ENT.BaseDamage 		= math.random(3,10)
 ENT.Owner 			= nil
-ENT.SearchRadius = 50
+ENT.SearchRadius = 100
 ENT.LoseTargetDist = 200
 ENT.stuckPos = Vector(0,0,0)
 ENT.times = 0
 ENT.nextCheck = 0
 local delay = 1
+
+local idl = {
+	"zombie_male/zom_idle.wav",
+	"zombie_male/zom_idle2.wav",
+	"zombie_male/zom_idle3.wav",
+}
 
 
 function ENT:Initialize()
@@ -23,11 +29,12 @@ function ENT:Initialize()
             "models/nmr_zombie/toby.mdl",
         }))
     end
-
+    self:EmitSound(table.Random(idl),75,75)
+    --self:SetColor( Color( 255, 0, 0, 50 ) ) 
     self.SearchRadius = 50
-	self.LoseTargetDist = 200
+	self.LoseTargetDist = 100
 
-    self.Entity:SetCollisionBounds( Vector(-4,-4,0), Vector(4,4,64) )
+    self.Entity:SetCollisionBounds( Vector(-8,-8,0), Vector(8,8,67) )
     self:SetCollisionGroup(COLLISION_GROUP_NPC_SCRIPTED)
 
 end
@@ -52,11 +59,11 @@ function ENT:BehaveUpdate( fInterval )
               self.times = self.times + 1
               if self.times > 10/modifier then
                   if CurTime() - self:getLastAttack() > 5 then
-                      self:BecomeRagdoll( DamageInfo() )
+                      SafeRemoveEntity( self )
                       NumZombies = NumZombies - 1
                   else
                       if self.times > 20/modifier then
-                          self:BecomeRagdoll( DamageInfo() )
+                          SafeRemoveEntity( self )
                           NumZombies = NumZombies - 1
                       end
                   end
@@ -90,8 +97,62 @@ function ENT:Use( activator, caller, type, value )
 
 end
 
-function ENT:Think()
 
+ENT.FootAngles = 5
+ENT.FootAngles2 = 5
+
+ENT.UseFootSteps = 1
+ENT.MoveType = 1
+
+ENT.Bone1 = "ValveBiped.Bip01_R_Foot"
+ENT.Bone2 = "ValveBiped.Bip01_L_Foot"
+function ENT:Think()
+    if not SERVER then return end
+	-- Step System --
+	if self.UseFootSteps == 1 then
+		if !self.nxtThink then self.nxtThink = 0 end
+		if CurTime() < self.nxtThink then return end
+
+		self.nxtThink = CurTime() + 0.025
+
+	-- First Step
+        local bones = self:LookupBone(self.Bone1)
+
+        local pos, ang = self:GetBonePosition(bones)
+
+        local tr = {}
+        tr.start = pos
+        tr.endpos = tr.start - ang:Right()* self.FootAngles + ang:Forward()* self.FootAngles2
+        tr.filter = self
+        tr = util.TraceLine(tr)
+
+        if tr.Hit && !self.FeetOnGround then
+			self:FootSteps()
+        end
+
+        self.FeetOnGround = tr.Hit
+
+	-- Second Step
+		local bones2 = self:LookupBone(self.Bone2)
+
+        local pos2, ang2 = self:GetBonePosition(bones2)
+
+        local tr = {}
+        tr.start = pos2
+        tr.endpos = tr.start - ang2:Right()* self.FootAngles + ang2:Forward()* self.FootAngles2
+        tr.filter = self
+        tr = util.TraceLine(tr)
+
+        if tr.Hit && !self.FeetOnGround2 then
+					self:FootSteps()
+        end
+
+        self.FeetOnGround2 = tr.Hit
+	end
+end
+
+function ENT:FootSteps()
+	self:EmitSound("npc/zombie/foot"..math.random(3)..".wav", 70)
 end
 
 function ENT:ThawOut()
@@ -185,12 +246,14 @@ function ENT:OnKilled( dmginfo )
 	elseif (itemnumber >= 25 && itemnumber <= 27) then
 		itemtype = "3ammo"
 	elseif (itemnumber >= 28 && itemnumber <= 28) then
-		itemtype = "tcure"
+		itemtype = "pammo"
 	elseif (itemnumber >= 29 && itemnumber <= 34) then
 		itemtype = "gherb"
 	elseif (itemnumber >= 35 && itemnumber <= 38) then
 		itemtype = "rherb"
 	elseif (itemnumber >= 39 && itemnumber <= 40) then
+        itemtype = "bherb"
+    elseif (itemnumber == 46 ) then
         itemtype = "bherb"
 	end
 	if itemtype != "lol" then
@@ -202,7 +265,9 @@ function ENT:OnKilled( dmginfo )
 	end
 	NumZombies = NumZombies - 1
 
-	self:BecomeRagdoll( dmginfo )
+	--self:BecomeRagdoll( dmginfo )
+    SafeRemoveEntity( self )
+    
 end
 
 function ENT:OnStuck( )
@@ -334,7 +399,12 @@ end
 -- end
 
 
-ENT.AttackSounds = {"npc/zombie/zo_attack1.wav","npc/zombie/zo_attack2.wav"}
+ENT.AttackSounds = {
+	"zombie_male/zom_attack.wav",
+	"zombie_male/arms_lunge1.wav",
+	"zombie_male/arms_lunge2.wav",
+	"zombie_male/arms_lunge3.wav",
+}
 
 function ENT:setAttackSounds(newAttackSounds)
     self.AttackSounds = newAttackSounds
@@ -440,7 +510,8 @@ function ENT:RunBehaviour()
 
 		local enemy = self:GetEnemy()
 		self:StartActivity( ACT_RUN )
-		self.loco:SetDesiredSpeed( math.random(35,130) )
+		local dif = GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 10
+		self.loco:SetDesiredSpeed( math.random(25+dif,75+dif) )
 
 		pos = enemy:GetPos()
 
@@ -499,17 +570,18 @@ function ENT:ChaseEnemy( options )
 		end
 
 		coroutine.yield()
-		for key, ent in pairs(ents.FindInSphere(self:GetPos(), 65)) do
+        for key, ent in pairs(ents.FindInSphere(self:GetPos(), 45)) do
             if (ent:IsPlayer()) && (ent:Team() == TEAM_HUNK ) then
                 self:AttackEntity(ent)
             end
         end
         
-        for gg, ent2 in pairs(ents.FindInSphere(self:GetPos(), 65 )) do
+        for gg, ent2 in pairs(ents.FindInSphere(self:GetPos(), 45 )) do
             if (IsValid(ent2) && self:CheckProp(ent2)) then
                self:AttackEntity(ent2)
             end
         end
+		
 
 	end
 
@@ -525,7 +597,6 @@ function ENT:HaveEnemy()
 	-- If our current enemy is valid
 	if ( self:GetEnemy() and IsValid(self:GetEnemy()) ) then
         -----------Attack--------
-        
 		-- If the enemy is too far
 		if ( self:GetRangeTo(self:GetEnemy():GetPos()) > self.LoseTargetDist ) then
 			-- If the enemy is lost then call FindEnemy() to look for a new one
@@ -606,9 +677,7 @@ function ENT:AttackEntity( entity, options )
 	if !self.nxtAttack then self.nxtAttack = 0 end
     if CurTime() < self.nxtAttack then return end
 
-        self.nxtAttack = CurTime() + 3
-        
-		if ( (entity:IsValid() ) ) then
+        self.nxtAttack = CurTime() + 1
 
             timer.Simple(0.5, function()
 
@@ -616,10 +685,11 @@ function ENT:AttackEntity( entity, options )
                 if self:Health() < 0 then return end
 
 
-                    if IsValid(entity) && entity:GetPos():Distance( self:GetPos() ) < 65 then
+                    if ( self:GetRangeTo(entity) < 45 and IsValid(entity) ) then
 
                         if entity:IsPlayer() then
-                            entity:TakeDamage(self.BaseDamage, self)
+							local dif = GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier
+                            entity:TakeDamage(self.BaseDamage + dif, self)
                             local soundPath = table.Random(self:getAttackSounds())
                             local chance = math.random(1,5)
                             if chance == 1 then
@@ -654,7 +724,7 @@ function ENT:AttackEntity( entity, options )
 
 
 		self:StartActivity( ACT_RUN )
-        end
+
         
 	return "ok"
 end

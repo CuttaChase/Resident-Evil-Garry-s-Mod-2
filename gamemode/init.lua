@@ -12,7 +12,6 @@ include( "translate.lua" )
 AddCSLuaFile("cl/cl_hud.lua")
 AddCSLuaFile("cl/cl_scoreboard.lua")
 AddCSLuaFile("cl/cl_net.lua")
-AddCSLuaFile("cl/cl_music.lua")
 
 
 AddCSLuaFile( "vgui/vgui_framework.lua" )
@@ -23,6 +22,8 @@ AddCSLuaFile( "vgui/vgui_votemenu.lua" )
 AddCSLuaFile( "vgui/vgui_adminmenu.lua" )
 AddCSLuaFile( "vgui/vgui_skills.lua" )
 AddCSLuaFile( "vgui/vgui_hud.lua" )
+AddCSLuaFile( "vgui/vgui_levels.lua" )
+AddCSLuaFile( "vgui/vgui_leaderboards.lua" )
 
 
 AddCSLuaFile("modules/upgrades.lua")
@@ -30,8 +31,8 @@ include("modules/upgrades.lua")
 include("modules/chests.lua")
 include("modules/perk_module.lua")
 include("modules/inventory.lua")
-include("modules/music.lua")
 include("modules/models_module.lua")
+include( "modules/levels.lua" )
 
 
 include( "sv/voting.lua" )
@@ -147,8 +148,13 @@ function Save(ply)
 	Savetable["OwnedModels"] = ownmdls
 	Savetable["EquippedModel"] = ply.EquippedModel
 	Savetable["EquippedModelPath"] = ply.EquippedModelPath
-	Savetable["AttackSkillPoints"] = ply.AttackSkillPoints
-	Savetable["HealthSkillPoints"] = ply.HealthSkillPoints
+	Savetable["SkillPoints"] = ply:GetNWInt("SkillPoints")
+	Savetable["AttackPoints"] = ply:GetNWInt("AttackPoints")
+	Savetable["HealthPoints"] = ply:GetNWInt("HealthPoints")
+	Savetable["CurrentXP"] = ply:GetNWInt("Experience")
+	Savetable["Level"] = ply:GetNWInt("Level")
+	Savetable["GamesPlayed"] = ply:GetNWInt("GamesPlayed")
+	Savetable["AmmoRegenPoints"] = ply:GetNWInt("AmmoRegenPoints")
 
 	local StrindedItems = util.TableToKeyValues(Savetable)
 
@@ -156,6 +162,7 @@ function Save(ply)
 
 
 end
+
 equippedmodel = 0
 equippedmodelpath = ""
 mdls2 = {}
@@ -203,6 +210,7 @@ mdls2["male15"] = "models/player/Group03/male_06.mdl"
 mdls2["male16"] = "models/player/Group03/male_07.mdl"
 mdls2["male17"] = "models/player/Group03/male_08.mdl"
 mdls2["male18"] = "models/player/Group03/male_09.mdl"
+
 function Load( ply )
 	local str_Steam = string.Replace(ply:SteamID(),":",";")
 	local path_FilePath = "re2/"..str_Steam..".txt"
@@ -211,7 +219,7 @@ function Load( ply )
 			ply:SetNWInt( "Money", GAMEMODE.Config.StartingMoney )
 			ply.inventory = { {Item = 0, Amount = 0}, {Item = 0, Amount = 0}, {Item = 0, Amount = 0}, {Item = 0, Amount = 0}, {Item = 0, Amount = 0}, {Item = 0, Amount = 0} }
 			ply:SetMaxInventory( 6 )
-			INVENTORY:Add( ply, "item_colt" )
+			INVENTORY:Add( ply, "weapon_usp" )
 			ply.Chest = {}
 			ply.OwnedPerks = {}
 			ply.EquippedPerks = { 0, 0, 0 }
@@ -219,9 +227,14 @@ function Load( ply )
 			ply.OwnedModels = {}
 			ply.EquippedModel = 0
 			ply.EquippedModelPath = ""
-			ply.AttackSkillPoints = 0
-			ply.HealthSkillPoints = 0
+			ply:SetNWInt("SkillPoints",0)
 			UPGRADES:InitializeData( ply )
+			ply:SetNWInt("Level",1)
+			ply:SetNWInt("GamesPlayed",0)
+			ply:SetNWInt("Experience",0)
+			ply:SetNWInt("AttackPoints",0)
+			ply:SetNWInt("HealthPoints",0)
+			ply:SetNWInt("AmmoRegenPoints",0)
 		else
 			local data = util.KeyValuesToTable( file.Read( path_FilePath, "DATA" ) )
 			local inv = data.inventory
@@ -236,13 +249,24 @@ function Load( ply )
 			local equippedmodel = data.equippedmodel
 			equippedmodelpath = data.equippedmodelpath
 			ply.EquippedModelPath = data.equippedmodelpath
-			local attackpoints = data.attackskillpoints
-			local healthpoints = data.healthskillpoints
-
+			local skillpoints = data.skillpoints
+			local attackpoints = data.attackpoints
+			local healthpoints = data.healthpoints
+			local currentxp = data.currentxp
+			local level = data.level
+			local gamesplayed = data.gamesplayed
+			local ammoregenpoints = data.ammoregenpoints
 
 			ply:SetMoney( money )
 			ply:SetMaxInventory( invslots )
 			ply:SetMaxStorage( chestslots )
+			ply:SetNWInt("Level",level)
+			ply:SetNWInt("GamesPlayed",gamesplayed+1)
+			ply:SetNWInt("Experience",currentxp)
+			ply:SetNWInt("SkillPoints",skillpoints)
+			ply:SetNWInt("AttackPoints",attackpoints)
+			ply:SetNWInt("HealthPoints",healthpoints)
+			ply:SetNWInt("AmmoRegenPoints",ammoregenpoints)
 
 			ply.OwnedModels = {}
 			if models then
@@ -268,7 +292,7 @@ function Load( ply )
 				end
 			end
 
-			ply.EquippedPerks = { 0, 0, 0 }
+			ply.EquippedPerks = {0,0,0}
 			for i=1, 3 do
 				if equippedperks[ i ] != 0 then
 					PERKS:EquipPerk( ply, perky.GetData( equippedperks[ i ] ), i )
@@ -303,8 +327,7 @@ function Load( ply )
 				end
 			end
 
-			ply.AttackSkillPoints = attackpoints
-			ply.HealthSkillPoints = healthpoints
+			
 
 			UPGRADES:InitializeData( ply )
 		end
@@ -312,28 +335,6 @@ function Load( ply )
 		SendDataToAClient( ply )
 
 end
-
-function GM:DoInfection(ply)
-	if ply:GetNWBool("Infected") && ply:Alive() && ply:GetNWInt("InfectedPercent") < 100 then
-		local add = math.random(1,5)
-		ply:SetNWInt("InfectedPercent",ply:GetNWInt("InfectedPercent") + add)
-		timer.Simple(10,function() GAMEMODE:DoInfection(ply) end)
-		if ply:GetNWInt("InfectedPercent") >= 100 then
-			ply:Kill()
-		end
-	end
-end
-
-function GM:ScaleNPCDamage(npc,hitgroup,dmginfo)
-   if hitgroup == 1 then
-		dmginfo:ScaleDamage(2)
-   elseif hitgroup == 2 then
-		dmginfo:ScaleDamage(1.5)
-	elseif hitgroup == 3 then
-			dmginfo:ScaleDamage(0.9)
-   end
-end
-
 
 -----------------------Items Spawns In Crates On Map
 

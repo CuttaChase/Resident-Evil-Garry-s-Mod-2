@@ -6,7 +6,7 @@ ITEM.WeaponClass = false
 
 ITEM.Name = "landmine"
 ITEM.Desc = "landmine"
-ITEM.Model = "models/props_combine/combine_mine01.mdl"
+ITEM.Model = "models/landmine.mdl"
 
 ITEM.Price = 150
 ITEM.Max = 4

@@ -27,7 +27,11 @@ function ITEM:OnUsed( ply )
 			if ply:Health() >= 51 and ply:Health() <= 74 then
 				GAMEMODE:SetPlayerSpeed(ply,140,140)
 			elseif ply:Health() >= 75 then
-				GAMEMODE:SetPlayerSpeed(ply,160,160)
+				if !ply:HasPerk("perk_training") then
+					GAMEMODE:SetPlayerSpeed(ply,160,160)
+				else
+					GAMEMODE:SetPlayerSpeed(ply,200,200)
+				end
 			elseif ply:Health() >= 20 and ply:Health() <= 50 then
 				GAMEMODE:SetPlayerSpeed(ply,120,120)
 			elseif ply:Health() <= 19 then

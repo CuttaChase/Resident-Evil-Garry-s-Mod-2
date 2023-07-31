@@ -2,7 +2,7 @@ AddCSLuaFile()
 ENT.Base             = "nz_base2"
 ENT.Spawnable        = false
 ENT.AdminSpawnable   = false
-ENT.Weapon			= "weapon_minigun_re"
+ENT.Weapon			= "re2_minigun"
 --SpawnMenu--
 list.Set( "NPC", "nz_boss_zombine", {
 	Name = "Zombine SS",
@@ -127,7 +127,7 @@ end
 function ENT:GiveWeapon(wep)
 
 	if SERVER  then
-	local wep = ents.Create("weapon_minigun_re")
+	local wep = ents.Create("re2_minigun")
 	wep.IsNPCWeapon = true
 	local pos = self:GetAttachment(self:LookupAttachment("anim_attachment_RH")).Pos
 	wep:SetOwner(self)
@@ -155,12 +155,12 @@ function ENT:ShootEnemy()
 	local bullet = {}
 					  bullet.Num = 1
 					  bullet.Src = self.Weapon:GetPos()+Vector(0,0,0)
-					  bullet.Dir = self:GetEnemy():WorldSpaceCenter()-(self:GetPos()+Vector(0,0,-20))
-					  bullet.Spread = Vector(5,5,5)
+					  bullet.Dir = self:GetEnemy():WorldSpaceCenter()-(self.Weapon:GetPos()+Vector(0,0,-20))
+					  bullet.Spread = Vector(22,22,22)
 					  bullet.Tracer = 1
 					  bullet.TracerName = "Tracer"
 					  bullet.Force = 4
-					  bullet.Damage = math.random(0,(5 + GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier))
+					  bullet.Damage = math.random(1,(8 + GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier))
 					  bullet.AmmoType = "pistol"
 
 self:FireBullets( bullet )
@@ -243,7 +243,7 @@ function ENT:CustomChaseEnemy()
 
 	if self.Attacking then return end
 		
-			if ( self.NextThrou or 0 ) < CurTime() then
+			if enemy:IsValid() && ( self.NextThrou or 0 ) < CurTime() then
 				
 				self.Throwing = true
 	

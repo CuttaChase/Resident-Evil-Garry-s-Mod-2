@@ -29,7 +29,7 @@ SWEP.AdminSpawnable		= false
 SWEP.Primary.Range			= 60
 SWEP.Primary.Recoil			= 4.6
 SWEP.Primary.Delay			= 10
-SWEP.Primary.Damage			= 30
+SWEP.Primary.Damage			= 1
 SWEP.Primary.Cone			= 0.02
 SWEP.Primary.NumShots		= 1
 
@@ -40,9 +40,9 @@ SWEP.Primary.Ammo			= "none"
 
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
-SWEP.Secondary.Damage		= 4
-SWEP.Secondary.Range		= 80
-SWEP.Secondary.Delay		= .6
+SWEP.Secondary.Damage		= 1
+SWEP.Secondary.Range		= 30
+SWEP.Secondary.Delay		= 1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
@@ -85,6 +85,39 @@ function SWEP:Think()
 end
 
 function SWEP:PrimaryAttack()
+
+	if not self:CanPrimaryAttack() then return end
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Delay)
+	local sequence = self.Weapon:LookupSequence(ACT_VM_HITCENTER)
+
+ 	local trace = util.GetPlayerTrace(self.Owner)
+ 	local tr = util.TraceLine(trace)
+	local soundrandomizer = math.random(1,5)
+	if soundrandomizer == 1 && SERVER then
+		EmitSound("npc/crow/alert2.wav", self.Owner:GetPos(), 1, CHAN_AUTO, 0.3,100)
+	end
+	
+	//self.Weapon:EmitSound("weapons/knife/knife_slash1.wav",100,math.random(90,120))
+
+	if (self.Owner:GetPos() - tr.HitPos):Length() < self.Primary.Range then
+		self.Owner:ViewPunch(Angle(math.Rand(-3,3) * self.Primary.Recoil,math.Rand(-3,3) * self.Primary.Recoil,0))
+		if tr.HitNonWorld then
+			if SERVER then tr.Entity:TakeDamage(self.Secondary.Damage,self.Owner) end
+			if tr.Entity:IsPlayer() && tr.Entity:Team() == TEAM_HUNK then
+				self:GetOwner():SetNWInt("Money",self:GetOwner():GetNWInt("Money") + 1)
+			elseif tr.Entity:IsNPC() then
+				self:GetOwner():SetNWInt("Money",self:GetOwner():GetNWInt("Money") + 1)
+			end
+			if tr.Entity:IsPlayer() or tr.Entity:IsNPC() then
+				self.Weapon:EmitSound(self.FleshHitSounds[1],100,math.random(95,110))
+				util.Decal("Blood",tr.HitPos + tr.HitNormal,tr.HitPos - tr.HitNormal)
+				if SERVER then self:SpawnBlood(tr) end
+			end
+		end
+	end
+
+	--[[
+
 	if not self:CanPrimaryAttack() then return end
 	self.Charging = true
 	local trace = util.GetPlayerTrace(self.Owner)
@@ -123,16 +156,24 @@ function SWEP:PrimaryAttack()
 		end
 	end)
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+
+	]]--
 end
 
 function SWEP:SecondaryAttack()
+
+	--[[
 	if not self:CanSecondaryAttack() then return end
 	self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
 	local sequence = self.Weapon:LookupSequence(ACT_VM_HITCENTER)
 
  	local trace = util.GetPlayerTrace(self.Owner)
  	local tr = util.TraceLine(trace)
-
+	local soundrandomizer = math.random(1,10)
+	if soundrandomizer == 1 && CLIENT then
+		EmitSound("npc/crow/alert2.wav", self.Owner:GetPos(), 1, CHAN_AUTO, 0.3,100)
+	end
+	
 	//self.Weapon:EmitSound("weapons/knife/knife_slash1.wav",100,math.random(90,120))
 
 	if (self.Owner:GetPos() - tr.HitPos):Length() < self.Primary.Range then
@@ -151,6 +192,8 @@ function SWEP:SecondaryAttack()
 			end
 		end
 	end
+
+	]]--
 end
 function SWEP:SpawnBlood(tr)
 	local effectdata = EffectData()

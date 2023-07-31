@@ -3,16 +3,16 @@ AddCSLuaFile( "shared.lua" )
 include('shared.lua')
 
 function ENT:Initialize()
-	self.Entity:SetModel(item.GetItem( self:GetClass() ).Model)	
-	self.Entity:PhysicsInit( SOLID_VPHYSICS )
-	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
-	self.Entity:SetSolid( SOLID_VPHYSICS )
-	self:SetCollisionGroup(11)	
+	self:SetModelScale(1.1)
 
-	local phys = self.Entity:GetPhysicsObject()
-	if IsValid( phys ) then
-		phys:Wake()
-	end
+	self.Entity:SetModel(item.GetItem( self:GetClass() ).Model)	
+	
+	self.Entity:PhysicsInit( 0 )
+	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
+	self.Entity:SetSolid( 6 )
+	self:SetCollisionGroup(11)
+
+
 end
 function ENT:OnTakeDamage(dmginfo)
 end

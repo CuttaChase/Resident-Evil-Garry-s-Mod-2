@@ -14,31 +14,6 @@ ENT.SearchRadius = 100
 ENT.LoseTargetDist = 500
 ENT.ModelScale = 0.9
 
-ENT.Status1WalkAnim = "walk_melee"
-
-ENT.Status2RunAnim = "run_all"
-
-ENT.Status3RunAnim = "zombie_run"
-
-ENT.Status1Attack1 = "weapon_attack1"
-ENT.Status1Attack2 = "weapon_attack2"
-ENT.FastAttack = "fastattack"
-ENT.BreakThroughAnim = "breakthrough"
-
-ENT.TransformAnim1 = "releasecrab"
-
-ENT.ChestFlinch1 = "physflinch1"
-ENT.ChestFlinch2 = "physflinch2"
-ENT.ChestFlinch3 = "physflinch3"
-
-ENT.HeadFlinch = "flinch_head"
-
-ENT.RLegFlinch = "flinch_rightleg"
-ENT.RArmFlinch = "flinch_rightarm"
-
-ENT.LLegFlinch = "flinch_leftleg"
-ENT.LArmFlinch = "flinch_leftarm"
-
 local pain = {"dog_ouch_strong0.wav",
 "dog_ouch_strong1.wav",
 "dog_ouch_strong3.wav",
@@ -46,16 +21,26 @@ local pain = {"dog_ouch_strong0.wav",
 "dog_ouch1.wav",
 "dog_ouch2.wav"}
 
+
+local idl = {"dog_misc0.wav",
+"dog_misc1.wav",
+"dog_misc2.wav"}
+
+local warn = {"dog_dying0.wav",
+"dog_dying1.wav"}
+
+
 function ENT:Initialize()
     self:SetModel( "models/player/slow/amberlyn/re5/dog/slow.mdl"  );
 	self:DrawShadow(false)
 	--self:SetCustomCollisionCheck( true )
-	self.Entity:SetCollisionBounds( Vector(-15,-15,0), Vector(15,15,64) )
+	self.Entity:SetCollisionBounds( Vector(-15,-15,0), Vector(15,15,56) )
 	self:SetCollisionGroup(COLLISION_GROUP_NPC_SCRIPTED)
 	self:SetModelScale( self.ModelScale, 0.8 )
 
 	self:SetHealth(math.random(20,60))
 	
+	self:EmitSound(table.Random(idl),110,170)
 	self.SearchRadius = 50
 	self.LoseTargetDist = 500
 
@@ -171,7 +156,7 @@ local dmg = dmginfo
 		item:Activate( )
 		timer.Simple(30, function() if item:IsValid() then item:Remove() end end)
 	end
-	self:BecomeRagdoll( dmginfo )
+	SafeRemoveEntity( self )
 end
 
 function ENT:ThawOut()
@@ -275,13 +260,6 @@ function ENT:DispatchAttack(entity, options)
 	return "ok"
 end
 
-local idl = {"dog_misc0.wav",
-"dog_misc1.wav",
-"dog_misc2.wav"}
-
-local warn = {"dog_dying0.wav",
-"dog_dying1.wav"}
-
 
 ----------------------------------------------------
 -- ENT:Get/SetEnemy()
@@ -303,25 +281,10 @@ end
 
 
 
-----------------------------------------------------
--- ENT:HaveEnemy()
--- Returns true if we have an enemy
-----------------------------------------------------
 function ENT:HaveEnemy()
 	-- If our current enemy is valid
 	if ( self:GetEnemy() and IsValid(self:GetEnemy()) ) then
         -----------Attack--------
-        for key, ent in pairs(ents.FindInSphere(self:GetPos(), 35)) do
-            if (ent:IsPlayer()) && (ent:Team() == TEAM_HUNK ) then
-                self:DispatchAttack(ent)
-            end
-        end
-
-        for gg, ent2 in pairs(ents.FindInSphere(self:GetPos(), 65 )) do
-            if (IsValid(ent2) && self:CheckProp(ent2)) then
-               self:DispatchAttack(ent2)
-            end
-        end
 		-- If the enemy is too far
 		if ( self:GetRangeTo(self:GetEnemy():GetPos()) > self.LoseTargetDist ) then
 			-- If the enemy is lost then call FindEnemy() to look for a new one
@@ -373,7 +336,7 @@ function ENT:FindEnemy()
 
     local target = nil
     for key, ply in pairs(player.GetAll()) do
-        if ply:Team() != TEAM_CROWS && ply:Alive() then
+        if ply:Team() != TEAM_CROWS && ply:Alive() && GetGlobalString("Mode") != "End" then
             if (!IsValid(target) or ply:GetPos():Distance( self:GetPos() ) < target:GetPos():Distance(self:GetPos())) then
                 target = ply
             end

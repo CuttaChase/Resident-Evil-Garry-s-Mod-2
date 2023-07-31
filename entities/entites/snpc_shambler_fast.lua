@@ -28,7 +28,7 @@ function ENT:Initialize()
     self.SearchRadius = 50
 	self.LoseTargetDist = 100
 
-    self.Entity:SetCollisionBounds( Vector(-4,-4,0), Vector(4,4,64) )
+    self.Entity:SetCollisionBounds( Vector(-8,-8,0), Vector(8,8,67) )
     self:SetCollisionGroup(COLLISION_GROUP_NPC_SCRIPTED)
 
 end
@@ -53,11 +53,11 @@ function ENT:BehaveUpdate( fInterval )
               self.times = self.times + 1
               if self.times > 10/modifier then
                   if CurTime() - self:getLastAttack() > 5 then
-                      self:BecomeRagdoll( DamageInfo() )
+                    SafeRemoveEntity( self )
                       NumZombies = NumZombies - 1
                   else
                       if self.times > 20/modifier then
-                          self:BecomeRagdoll( DamageInfo() )
+                        SafeRemoveEntity( self )
                           NumZombies = NumZombies - 1
                       end
                   end
@@ -205,7 +205,7 @@ function ENT:OnKilled( dmginfo )
 	end
 	NumZombies = NumZombies - 1
 
-	self:BecomeRagdoll( dmginfo )
+	SafeRemoveEntity( self )
 end
 
 function ENT:OnStuck( )
@@ -443,7 +443,8 @@ function ENT:RunBehaviour()
 
 		local enemy = self:GetEnemy()
 		self:StartActivity( ACT_RUN )
-		self.loco:SetDesiredSpeed( math.random(200,260) )
+		local dif = GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 10
+		self.loco:SetDesiredSpeed( math.random(200+dif,260+dif) )
 
 		pos = enemy:GetPos()
 
@@ -609,9 +610,7 @@ function ENT:AttackEntity( entity, options )
 	if !self.nxtAttack then self.nxtAttack = 0 end
     if CurTime() < self.nxtAttack then return end
 
-        self.nxtAttack = CurTime() + 3
-        
-		if ( (entity:IsValid() ) ) then
+        self.nxtAttack = CurTime() + 1
 
             timer.Simple(0.5, function()
 
@@ -619,10 +618,11 @@ function ENT:AttackEntity( entity, options )
                 if self:Health() < 0 then return end
 
 
-                    if IsValid(entity) && entity:GetPos():Distance( self:GetPos() ) < 65 then
+                    if ( self:GetRangeTo(entity) < 45 and IsValid(entity) ) then
 
                         if entity:IsPlayer() then
-                            entity:TakeDamage(self.BaseDamage, self)
+							local dif = GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier
+                            entity:TakeDamage(self.BaseDamage + dif, self)
                             local soundPath = table.Random(self:getAttackSounds())
                             local chance = math.random(1,5)
                             if chance == 1 then
@@ -657,7 +657,7 @@ function ENT:AttackEntity( entity, options )
 
 
 		self:StartActivity( ACT_RUN )
-        end
+
         
 	return "ok"
 end

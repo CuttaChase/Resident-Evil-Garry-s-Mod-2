@@ -3,25 +3,17 @@ AddCSLuaFile( "shared.lua" )
 include('shared.lua')
 
 function ENT:Initialize()
-    if self:GetModel() == nil or self:GetModel() == "models/error.mdl" then
-       	self:SetModel("models/props_wasteland/barricade002a.mdl")
-    end
-	self:SetSolid(SOLID_VPHYSICS)
-	self:SetModelScale(0.5)
+ 
+	self:SetModelScale(0.4)
+
+	self.Entity:SetModel(item.GetItem( self:GetClass() ).Model)	
 	
-
-
-		self.Entity:PhysicsInit( SOLID_VPHYSICS )
-		self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
-		self.Entity:SetSolid( SOLID_VPHYSICS )
-		self:SetCollisionGroup(20)	
+	self.Entity:PhysicsInit( 0 )
+	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
+	self.Entity:SetSolid( 6 )
+	self:SetCollisionGroup(11)
 		
-		local phys = self:GetPhysicsObject()
-			if phys:IsValid() then
-				phys:EnableMotion( true )
-				phys:EnableGravity( true )
-				phys:Wake()
-			end
+
 end
 
 function ENT:StartTouch(ent)

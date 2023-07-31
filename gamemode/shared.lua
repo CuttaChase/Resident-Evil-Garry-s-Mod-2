@@ -13,6 +13,7 @@ if( SERVER ) then
 	AddCSLuaFile( "modules/models.lua" )
 	AddCSLuaFile( "translate.lua" )
 	AddCSLuaFile( "config.lua" )
+	AddCSLuaFile( "modules/music.lua" )
 end;
 include( "modules/items.lua" )
 include( "modules/perks.lua" )
@@ -20,6 +21,8 @@ include( "modules/models.lua" )
 include( "sv/sh_ply_extension.lua" )
 include( "translate.lua" )
 include( "config.lua" )
+include( "modules/music.lua" )
+include( "modules/levels.lua" )
 
 function GM:Initialize()
 SetGlobalString( "Mode", "Merchant" )
@@ -45,54 +48,18 @@ end
 
 		-----------------------------------------------------------------------------------------------------------------------------
 
-LIGHT_COMMANDS = {
-	"Kick",
-	"Msg",
-	"Slap",
-}
-COMMANDS = {
-	"Kick",
-	"Ban",
-	"Slay",
-	"Slap",
-	"Freeze",
-	"UnFreeze",
-	"StripWeapons",
-	"Break Legs",
-	"Suicide Bomb",
-	"Msg",
-	"SetJump",
-	"Ignite",
-	"SetHealth",
-	"Give",
-}
-SUPER_COMMANDS = {
-	"Kick",
-	"Ban",
-	"Slay",
-	"Slap",
-	"Freeze",
-	"UnFreeze",
-	"Give",
-	"Godmode",
-	"UnGodmode",
-	"Toggle/NoClip",
-	"StripWeapons",
-	"Break Legs",
-	"Suicide Bomb",
-	"Msg",
-	"SetJump",
-	"Ignite",
-	"SetHealth",
-	"Create",
-	"AdminGiveItemPlayer",
-}
-
 LeonVoiceLine1 = Sound( "re2_voicelines/leon_v/leon_wholeplaceisgoingdown.mp3" )
 LeonVoiceLine2 = Sound( "re2_voicelines/leon_v/leon_dontworryaboutme.mp3" )
 AdaVoiceLine1 = Sound( "re2_voicelines/adawong_v/ada_namesada.mp3" )
 AdaVoiceLine2 = Sound( "re2_voicelines/adawong_v/ada_dontpushit.mp3" )
 AdaVoiceLine3 = Sound( "re2_voicelines/adawong_v/ada_waysclear.mp3" )
+HunkVoiceLine1 = Sound( "re2_voicelines/hunk_v/hunk_enemycontact.mp3" )
+HunkVoiceLine2 = Sound( "re2_voicelines/hunk_v/hunk_iminjured.mp3" )
+HunkVoiceLine3 = Sound( "re2_voicelines/hunk_v/hunk_imreloading.mp3" )
+HunkVoiceLine4 = Sound( "re2_voicelines/hunk_v/hunk_targetsdown.mp3" )
+HunkVoiceLine5 = Sound( "re2_voicelines/hunk_v/hunk_infectedincoming.mp3" )
+ClaireVoiceLine1 = Sound( "re2_voicelines/claire_v/claire_ifoundawayout.mp3" )
+ClaireVoiceLine2 = Sound( "re2_voicelines/claire_v/claire_ithinkwecanmakeit.mp3" )
 
 function IncludeModules()
 
@@ -139,10 +106,26 @@ IncludeModules()
 
 
 model_cache_list = {
+	-----Player Models----
 	"models/vinrax/player/re2/ada_wong.mdl",
-	"models/vinrax/player/re2/leon_normal.mdl"
-
+	"models/vinrax/player/re2/leon_normal.mdl",
+	"models/vinrax/player/re2/clare_normal.mdl",
+	"models/vinrax/player/re2/hunk.mdl",
+	-----Zombies------
+	"models/nmr_zombie/berny.mdl",
+	"models/nmr_zombie/casual_02.mdl",
+	"models/nmr_zombie/herby.mdl",
+	"models/nmr_zombie/jogger.mdl",
+	"models/nmr_zombie/julie.mdl",
+	"models/nmr_zombie/toby.mdl",
+	"models/player/re/nemesisalpha.mdl",
+	"models/player/slow/amberlyn/re5/dog/slow.mdl",
+	-----others------
+	"models/landmine.mdl",
+	"models/chest.mdl",
 }
+
+
 for k, v in pairs (model_cache_list) do
 	util.PrecacheModel(v)
 end

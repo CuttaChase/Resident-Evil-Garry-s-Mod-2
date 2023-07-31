@@ -355,10 +355,10 @@ function ENT:RunBehaviour()
 			
 					self.HasNoEnemy = false
 					if self:getRunning() then
-						self.loco:SetDesiredSpeed( 100 + ( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 25) )
+						self.loco:SetDesiredSpeed( 25 + ( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 25) )
 		
 					else
-						self.loco:SetDesiredSpeed( 100 + ( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 25) )
+						self.loco:SetDesiredSpeed( 25 + ( GAMEMODE.ZombieData[GetGlobalString("Re2_Difficulty")].Modifier * 25) )
 					end
 					if self:CheckStatus() then
 						self:MovementFunctions( self.MoveType, self.WalkAnim, self.Speed, self.WalkSpeedAnimation )

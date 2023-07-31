@@ -1,9 +1,7 @@
 include( "config.lua" )
 include( "shared.lua" )
-include( "cl/cl_hud.lua" )
 include( "cl/cl_scoreboard.lua" )
 include( "cl/cl_net.lua" )
-include( "cl/cl_music.lua" )
 include( "modules/upgrades.lua" )
 
 if not MENU then MENU = {} end
@@ -15,6 +13,8 @@ include( "vgui/vgui_votemenu.lua" )
 include( "vgui/vgui_adminmenu.lua" )
 include( "vgui/vgui_hud.lua" )
 include( "vgui/vgui_skills.lua" )
+include( "vgui/vgui_levels.lua" )
+include( "vgui/vgui_leaderboards.lua" )
 
 
 CV_LaserRed = CreateClientConVar( "cl_regmod_lasercol_r", "0", true, false )
@@ -139,26 +139,51 @@ GM.Upgrade = {}
 GM.OwnedModels = {}
 GM.EquippedModel = 0
 GM.EquippedModelPath = ""
-GM.AttackSkillPoints = 0
-GM.HealthSkillPoints = 0
 GM.PlayerChestSlots = GM.Config.InitialStorageSlots
 
 function GM:Initialize()
 	justjoined = false
 	timer.Simple(0.001,function() RunConsoleCommand("InvUpdate") end)
-	local FilePath = "re2/music.txt"
-	if file.Exists(FilePath, "DATA") then
+	timer.Simple(0.1,function() 
+	
+		if GetGlobalString("Mode") == "Merchant" or GetGlobalString("Mode") == "prep" then
+			timer.Simple(15,function() Sound_Create(table.Random(GAMEMODE.Music.Safe).Sound) end)
+		elseif GetGlobalString("Mode")  == "On" then
+			timer.Simple(15,function() Sound_Create(table.Random(GAMEMODE.Music.Battle).Sound) end)
+		elseif GetGlobalString("Mode")  == "End" then
+			timer.Simple(15,function() Sound_Create(table.Random(GAMEMODE.Music.End).Sound) end)
+		end
+	
+	
+	end)
+	
 
-	local tempcross = util.KeyValuesToTable(file.Read(FilePath))
-		tempcross["Music"] = tonumber(file.Read(FilePath))
-
-	else
-	  print("Music Not Loaded ")
-	end
-
-	timer.Simple(15,function() Sound_Create(GetGlobalString("Music")) end)
 
 end
+
+--[[
+
+
+ For the afk checking
+
+]]
+hook.Add("Think","findafkpeople",function()
+	ply = LocalPlayer()
+	local theok = 1
+	if ply:KeyPressed(IN_FORWARD) or ply:KeyPressed(IN_BACK) or ply:KeyPressed(IN_LEFT) or ply:KeyPressed(IN_RIGHT) or ply:KeyPressed(IN_ATTACK) then
+		net.Start("AfkPeopleBG")
+		net.WriteInt(theok, 3)
+		net.SendToServer()
+	end
+
+end)
+--[[
+
+
+
+]]
+
+
 
 function StopSounds ( UMsg )
 	local Cmd = UMsg:ReadString();
@@ -202,8 +227,11 @@ Ammoref["item_mammo"] = "smg1"
 Ammoref["item_bammo"] = "buckshot"
 
 function GM:PlayerBindPress( ply, bind )
-
-
+	if ply:Team() == TEAM_CROWS then return end
+	if bind == "+jump" then 
+		ply:ConCommand( "regmod_dash" )
+		return true 
+	end
 
 	if MENU.Inventory then
 		if bind:StartWith( "slot" ) then

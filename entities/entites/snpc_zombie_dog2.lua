@@ -11,33 +11,8 @@ ENT.NextAttack = 1.2
 ENT.WalkAnim = "walk_melee"
 ENT.IdleAnim = "idle"
 ENT.SearchRadius = 100
-ENT.LoseTargetDist = 200
+ENT.LoseTargetDist = 500
 ENT.ModelScale = 0.9
-
-ENT.Status1WalkAnim = "walk_melee"
-
-ENT.Status2RunAnim = "run_all"
-
-ENT.Status3RunAnim = "zombie_run"
-
-ENT.Status1Attack1 = "weapon_attack1"
-ENT.Status1Attack2 = "weapon_attack2"
-ENT.FastAttack = "fastattack"
-ENT.BreakThroughAnim = "breakthrough"
-
-ENT.TransformAnim1 = "releasecrab"
-
-ENT.ChestFlinch1 = "physflinch1"
-ENT.ChestFlinch2 = "physflinch2"
-ENT.ChestFlinch3 = "physflinch3"
-
-ENT.HeadFlinch = "flinch_head"
-
-ENT.RLegFlinch = "flinch_rightleg"
-ENT.RArmFlinch = "flinch_rightarm"
-
-ENT.LLegFlinch = "flinch_leftleg"
-ENT.LArmFlinch = "flinch_leftarm"
 
 local pain = {"dog_ouch_strong0.wav",
 "dog_ouch_strong1.wav",
@@ -46,18 +21,28 @@ local pain = {"dog_ouch_strong0.wav",
 "dog_ouch1.wav",
 "dog_ouch2.wav"}
 
+
+local idl = {"dog_misc0.wav",
+"dog_misc1.wav",
+"dog_misc2.wav"}
+
+local warn = {"dog_dying0.wav",
+"dog_dying1.wav"}
+
+
 function ENT:Initialize()
     self:SetModel( "models/player/slow/amberlyn/re5/dog/slow.mdl"  );
 	self:DrawShadow(false)
 	--self:SetCustomCollisionCheck( true )
-	self.Entity:SetCollisionBounds( Vector(-5,-5,0), Vector(5,5,64) )
+	self.Entity:SetCollisionBounds( Vector(-15,-15,0), Vector(15,15,56) )
 	self:SetCollisionGroup(COLLISION_GROUP_NPC_SCRIPTED)
-	self:SetModelScale( self.ModelScale, 0 )
+	self:SetModelScale( self.ModelScale, 0.8 )
 
 	self:SetHealth(math.random(20,60))
-
+	
+	self:EmitSound(table.Random(idl),110,170)
 	self.SearchRadius = 50
-	self.LoseTargetDist = 100
+	self.LoseTargetDist = 500
 
 end
 
@@ -135,7 +120,7 @@ local dmg = dmginfo
   		end
   	end
 
-
+  	--SetGlobalInt("RE2_DeadZombies", GetGlobalInt("RE2_DeadZombies") + 1)
   	local itemnumber = math.random(1,GAMEMODE.ZombieData[GetGlobalString("RE2_Difficulty")].ItemChance)
 	local itemtype = "lol"
 	if itemnumber == 1 then
@@ -171,7 +156,7 @@ local dmg = dmginfo
 		item:Activate( )
 		timer.Simple(30, function() if item:IsValid() then item:Remove() end end)
 	end
-	self:BecomeRagdoll( dmginfo )
+	SafeRemoveEntity( self )
 end
 
 function ENT:ThawOut()
@@ -275,13 +260,6 @@ function ENT:DispatchAttack(entity, options)
 	return "ok"
 end
 
-local idl = {"dog_misc0.wav",
-"dog_misc1.wav",
-"dog_misc2.wav"}
-
-local warn = {"dog_dying0.wav",
-"dog_dying1.wav"}
-
 
 ----------------------------------------------------
 -- ENT:Get/SetEnemy()
@@ -294,60 +272,93 @@ function ENT:GetEnemy()
 	return self.Enemy
 end
 
-----------------------------------------------------
--- ENT:HaveEnemy()
--- Returns true if we have a enemy
-----------------------------------------------------
-function ENT:HaveEnemy()
-
-	local enemy = self:GetEnemy()
-
-	if ( enemy and IsValid( enemy ) ) then
-		if ( enemy:IsPlayer() and !enemy:Alive() ) then
-			return self:FindEnemy()
-		elseif ( self:GetRangeTo( self:GetEnemy():GetPos() ) > self.LoseTargetDist ) then
-			return self:FindEnemy()
-	end
-
-		return true
-	else
-		return self:FindEnemy()
-	end
-
-end
 
 function ENT:Nope()
 
 	self.Enemy = nil
 end
+
+
+
+
+function ENT:HaveEnemy()
+	-- If our current enemy is valid
+	if ( self:GetEnemy() and IsValid(self:GetEnemy()) ) then
+        -----------Attack--------
+		-- If the enemy is too far
+		if ( self:GetRangeTo(self:GetEnemy():GetPos()) > self.LoseTargetDist ) then
+			-- If the enemy is lost then call FindEnemy() to look for a new one
+			-- FindEnemy() will return true if an enemy is found, making this function return true
+			return self:FindEnemy()
+		-- If the enemy is dead( we have to check if its a player before we use Alive() )
+		elseif ( self:GetEnemy():IsPlayer() and !self:GetEnemy():Alive() ) then
+			return self:FindEnemy()		-- Return false if the search finds nothing
+		end
+		-- The enemy is neither too far nor too dead so we can return true
+		return true
+	else
+		-- The enemy isn't valid so lets look for a new one
+		return self:FindEnemy()
+	end
+
+end
+
 ----------------------------------------------------
 -- ENT:FindEnemy()
 -- Returns true and sets our enemy if we find one
 ----------------------------------------------------
 function ENT:FindEnemy()
-local pos = self:GetPos()
 
-	local min_dist, closest_target = -1, nil
+    --[[
 
-	for _, target in pairs(player.GetAll()) do
-		if (IsValid(target)&&target:Alive()&&target:Team() != TEAM_CROWS&&GetGlobalString("Mode") != "End"&&target:GetMoveType() == MOVETYPE_WALK) then
-			local dist = target:NearestPoint(pos):Distance(pos)
-			if ((dist < min_dist||min_dist==-1)) then
-				closest_target = target
-				min_dist = dist
-				self:SetEnemy( target )
-			end
-		end
-	end
+    local pos = self:GetPos()
 
-	for key, ent in pairs(ents.FindInSphere(self:GetPos(), 35)) do
-		if (IsValid(ent) ) then
-		self:DispatchAttack(ent)
-		end
-	end
+    local min_dist, closest_target = -1, nil
+
+    for _, target in pairs(player.GetAll()) do
+        if (IsValid(target)&&target:Alive()&&target:Team() != TEAM_CROWS&&GetGlobalString("Mode") != "End"&&target:GetMoveType() == MOVETYPE_WALK) then
+            local dist = target:NearestPoint(pos):Distance(pos)
+            if ((dist < min_dist||min_dist==-1)) then
+                closest_target = target
+                min_dist = dist
+                self:SetEnemy( target )
+            end
+        end
+    end
+
+    return closest_target
+
+    ]]--
+
+    
 
 
-	return closest_target
+
+    local target = nil
+    for key, ply in pairs(player.GetAll()) do
+        if ply:Team() != TEAM_CROWS && ply:Alive() && GetGlobalString("Mode") != "End" then
+            if (!IsValid(target) or ply:GetPos():Distance( self:GetPos() ) < target:GetPos():Distance(self:GetPos())) then
+                target = ply
+            end
+        end
+    end
+
+    self:SetEnemy( target )
+    return target
+end
+
+
+
+
+function ENT:CheckProp( ent )
+    if ent:GetCollisionGroup() == COLLISION_GROUP_DEBRIS then return false end
+    if ent.dontTarget then return false end
+    if ent.isCade then
+        return true
+    else
+        return false
+    end
+    return false
 end
 
 ----------------------------------------------------
@@ -361,7 +372,7 @@ function ENT:RunBehaviour()
 
 		local enemy = self:GetEnemy()
 		self:StartActivity( ACT_RUN )
-		self.loco:SetDesiredSpeed( 250 )
+		self.loco:SetDesiredSpeed( 350 )
 
 		pos = enemy:GetPos()
 

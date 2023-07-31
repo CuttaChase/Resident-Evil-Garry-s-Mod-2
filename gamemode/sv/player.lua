@@ -21,11 +21,9 @@ function GM:ShowTeam( ply )
 end
 
 hook.Add( "PlayerButtonDown", "SkillsKey", function( ply, key )
-	if ply:IsAdmin() then
-		if ( key == KEY_F7 )  then
-			net.Start( "REGmod.OpenSkills" )
-			net.Send( ply )
-		end
+	if ( key == KEY_F2 ) then
+		net.Start( "REGmod.OpenSkills" )
+		net.Send( ply )
 	end
 end )
 
@@ -94,6 +92,28 @@ mdls["male15"] = "models/player/Group03/male_06.mdl"
 mdls["male16"] = "models/player/Group03/male_07.mdl"
 mdls["male17"] = "models/player/Group03/male_08.mdl"
 mdls["male18"] = "models/player/Group03/male_09.mdl"
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+---------------------------------AFK PEOPLE Nets----------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+util.AddNetworkString("AfkPeopleBG")
+
+net.Receive("AfkPeopleBG", function(len, ply) 
+	local on = net.ReadInt(3)
+	if ply:IsValid() && on != nil then
+		ply:SetNWBool("keynotpressed", false)
+	end
+end)
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
 
 function GM:PlayerInitialSpawn(ply)
 	ply.CanEarn = true
@@ -164,6 +184,35 @@ function GM:PlayerSpawn(ply)
 	ply.CanUse = true
 	SendDataToAClient(ply)
 
+
+
+
+	--kick People out of server
+
+
+
+	local timetomove = 120
+	ply:SetNWBool("keynotpressed", true)
+	
+	timer.Create( "AFK_Timer", timetomove, 1, function()
+		
+		timer.Simple( 3, function() 
+			if ply:IsValid() then
+				if ply:IsValid() and ply:GetNWBool("keynotpressed") == true and !ply:IsSuperAdmin() then
+					--ply:Kick("You have been kicked for being afk. This effects Game Difficulty for other players")
+					print(""..ply:Nick().. " has been kicked from the server")
+				else
+					print(""..ply:Nick().. " has moved")
+				end
+			end
+		end  )
+		
+		
+	end )
+
+
+	---------------------------------
+
 end
 
 local PLY = FindMetaTable("Player")
@@ -214,7 +263,7 @@ function GM:DoPlayerDeath(ply,attacker,dmginfo)
 	Save(ply)
 	ply.NextSpawnTime = CurTime() + 30
 	ply.DeathTime = CurTime()
-	if ply:Team() == TEAM_CROWS then
+	if ply:Team() == TEAM_CROWS && GetGlobalString("RE2_Game") != "Boss" then
 		SetGlobalInt("RE2_DeadZombies", GetGlobalInt("RE2_DeadZombies") + 1)
 	end
 
@@ -352,15 +401,42 @@ function GM:PlayerUse( ply, ent )
 	return true
 end
 
+---player explosive damage
+
 function GM:EntityTakeDamage( ent, dmginfo )
 
 	if ( ent:IsPlayer() and dmginfo:IsExplosionDamage() ) then
 
-		dmginfo:ScaleDamage( 0.1 )
+		dmginfo:ScaleDamage( 0.0 )
 
 	end
 
 
+end
+
+----zombie infection to players
+
+function GM:DoInfection(ply)
+	if ply:GetNWBool("Infected") && ply:Alive() && ply:GetNWInt("InfectedPercent") < 100 then
+		local add = math.random(1,5)
+		ply:SetNWInt("InfectedPercent",ply:GetNWInt("InfectedPercent") + add)
+		timer.Simple(10,function() GAMEMODE:DoInfection(ply) end)
+		if ply:GetNWInt("InfectedPercent") >= 100 then
+			ply:Kill()
+		end
+	end
+end
+
+
+-----player damage scaling towards zombies
+function GM:ScaleNPCDamage(npc,hitgroup,dmginfo)
+	if hitgroup == 1 then
+		dmginfo:ScaleDamage(10)
+	elseif hitgroup == 2 then
+		dmginfo:ScaleDamage(5)
+	else
+		dmginfo:ScaleDamage(3)
+	end
 end
 
 function GM:PlayerDisconnected( ply )
@@ -396,7 +472,7 @@ end
 concommand.Add( "regmod_dash", function( ply )
 	if not ply.DashDown then ply.DashDown = 0 end
 	if ply.DashDown > CurTime() then return end
-	if not ply.CanDash then return end
+	if ply:Team() == TEAM_CROWS then return end
 
 	ply:ViewPunch( Angle(5, 0, 0) )
 	ply:SetLocalVelocity( ply:GetForward() * 1300 )

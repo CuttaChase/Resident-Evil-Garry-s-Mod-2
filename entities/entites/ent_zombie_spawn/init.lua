@@ -14,7 +14,7 @@ end
 function ENT:AcceptInput(name,activator,caller)
 	if Name == "Enable" || Name == "enable" then
 		self.Disabled = false
-	elseif Name == "Disable" || Name == "Disable" then
+	elseif Name == "Disable" || Name == "disable" then
 		self.Disabled = true
 	end
 end
@@ -40,5 +40,8 @@ end
 function ENT:KeyValue( key, value )
 	if key == "Disabled" || key == "disabled" then
 		self.Disabled = true
+	end
+	if key == "Enabled" || key == "enabled" then
+		self.Disabled = false
 	end
 end

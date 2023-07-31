@@ -8,11 +8,8 @@ function ENT:Initialize()
 	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
 	self.Entity:SetSolid( SOLID_VPHYSICS )
 	self:SetCollisionGroup(11)	
+	self:SetModelScale(  3 )
 
-	local phys = self.Entity:GetPhysicsObject()
-	if IsValid( phys ) then
-		phys:Wake()
-	end
 end
 function ENT:OnTakeDamage(dmginfo)
 end

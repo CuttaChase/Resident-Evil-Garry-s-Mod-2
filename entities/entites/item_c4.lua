@@ -29,12 +29,7 @@ if SERVER then
 		self.Entity:SetSolid( SOLID_VPHYSICS )
 		self:SetCollisionGroup(11)	
 		
-		local phys = self:GetPhysicsObject()
-			if phys:IsValid() then
-				phys:EnableMotion( true )
-				phys:EnableGravity( true )
-				phys:Wake()
-			end
+	
 		--[[
 			timer.Simple(8, function() 
 				if ( self:IsValid() ) then 
@@ -68,10 +63,10 @@ function ENT:Asplode()
 		util.Decal( "Scorch", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal )
 	end
 
-	local radius = 100
-	local damage = 300
+	local radius = 200
+	local damage = 100
 	
-	if self.Entity:GetOwner():HasPerk( "perk_explosives" ) then radius = 200 damage = 600 end
+	if self.Entity:GetOwner():HasPerk( "perk_explosives" ) then radius = 300 damage = 200 end
 	
 	util.BlastDamage( self.Entity, self.Entity:GetOwner(), self.Entity:GetPos(), radius, damage )
 	self.Entity:EmitSound("weapon_AWP.Single",800,500)

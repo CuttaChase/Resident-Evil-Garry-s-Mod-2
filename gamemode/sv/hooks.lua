@@ -15,6 +15,8 @@ hook.Add( "ShouldCollide", "CustomCollisions", function( ent1, ent2 )
 		return false
 	elseif ent1:GetClass() == "m79_bomb" && ent2:IsPlayer() then
 		return false
+	else
+		return true
 	end
 
 end )
@@ -76,6 +78,20 @@ hook.Add("PlayerSay","GotStuck",function(ply, text, team)
 
 end)
 
+
+----------------------Open Up Leaderboards--------------------------------------------
+hook.Add("PlayerSay","OpenLeaderBoards",function(ply, text, team)
+
+	if string.sub(text,1,6) == "!stats" then
+	
+		net.Start( "REGmod.OpenLeaderboards" )
+		net.Send( ply )
+		
+	end
+
+end)
+
+
 -------------------PVP Hook--------------------------
 --[[
 
@@ -130,4 +146,22 @@ function cadeEntityTakeDamage( ent, dmginfo )
 end
 hook.Add("EntityTakeDamage", "cadeEntityTakeDamage", cadeEntityTakeDamage)
 
+
+-------------------------------------------------
+-------------------------------------------------
+
+--This is code to clean up zombies on platforms--
+local zcudelay = 0
+hook.Add( "Think", "platformsfix", function()
+	
+	if CurTime() < zcudelay then return end	
+	--print(game.GetMap())
+		if game.GetMap() == "re2e_platforms" then
+			for k, v in pairs( ents.FindByClass( "snpc_*" ) ) do
+				v:TakeDamage( 9999, nil, nil )
+				print( "Zombies Wiped" )
+			end
+		end
+	zcudelay = CurTime() + 45
+end)
 
