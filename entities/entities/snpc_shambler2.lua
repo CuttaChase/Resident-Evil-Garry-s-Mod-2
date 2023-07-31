@@ -683,6 +683,7 @@ function ENT:AttackEntity( entity, options )
                 if !self:IsValid() then return end
                 if self:Health() < 0 then return end
 
+                if IsValid(entity) then
 
                     if ( self:GetRangeTo(entity) < 45 and IsValid(entity) ) then
 
@@ -715,7 +716,8 @@ function ENT:AttackEntity( entity, options )
                     else
                         self:EmitSound("weapons/stunstick/stunstick_swing2.wav")
                     end
-
+                    
+                end
 
             end)
             self:PlaySequenceAndWait( table.Random(self:getAttackAnims()), 2 )

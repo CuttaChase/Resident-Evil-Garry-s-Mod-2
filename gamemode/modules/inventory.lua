@@ -92,7 +92,7 @@ function INVENTORY:Throw( ply, itemtbl )
 	if itemtbl.ClassName == "item_c4" || itemtbl.ClassName == "item_landmine" || itemtbl.ClassName == "item_barricade" then
 		DropedEnt:SetPos(ply:GetPos())
 	else
-		DropedEnt:SetPos(ply:EyePos() + (ply:GetAimVector() * 30))
+		DropedEnt:SetPos(ply:GetPos())
 	end
 	--[[
 	if itemtbl.WeaponClass then

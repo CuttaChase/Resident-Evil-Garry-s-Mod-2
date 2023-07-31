@@ -9,7 +9,7 @@ ITEM.Desc = "barricade"
 ITEM.Model = "models/props_wasteland/barricade002a.mdl"
 
 ITEM.Price = 150
-ITEM.Max = 1
+ITEM.Max = 4
 
 ITEM.Category = "Supplies"
 
@@ -34,7 +34,19 @@ function ITEM:OnUsed( ply )
 	ghost:SetOwner(ply)
 	local anglefix = Angle(0,-90,0)
 	ghost:SetAngles(ply:GetAngles() + anglefix)
-	ghost:SetHealth(25)
+	if ply:HasPerk("perk_engineer") then
+		ghost:SetHealth(200)
+		for k,v in pairs(ents.FindInSphere(ghost:GetPos(), 80)) do
+			if v:IsValid() and v:IsPlayer() then
+				local healthdelay = 0
+				if CurTime() <= healthdelay then return end
+				ghost:SetHealth(ghost:Health() + 1)
+				healthdelay = CurTime() + 5
+			end
+		end
+	else
+		ghost:SetHealth(100)
+	end
 	ghost:SetModelScale(1)
 	ghost:SetCollisionGroup(11)
 	ghost:SetSolid(SOLID_VPHYSICS)
@@ -86,5 +98,3 @@ function ITEM:OnDropped( ply )
 end
 
 item.Register( ITEM )
-
- 
