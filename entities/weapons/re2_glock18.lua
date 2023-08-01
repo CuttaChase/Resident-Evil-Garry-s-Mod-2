@@ -1,5 +1,5 @@
 if (CLIENT) then
-	SWEP.PrintName			= "Glock 18"
+	SWEP.PrintName			= "#re2gm_wpn_glock18"
 	SWEP.Slot				= 1
 	SWEP.SlotPos			= 1
 	SWEP.IconLetter			= "c"

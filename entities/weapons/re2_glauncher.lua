@@ -1,5 +1,5 @@
 if (CLIENT) then
-	SWEP.PrintName			= "m79 Grenade Launcher"
+	SWEP.PrintName			= "#re2gm_wpn_glnchr"
 	SWEP.Slot				= 3
 	SWEP.SlotPos			= 0
 	SWEP.IconLetter			= "C"
@@ -195,11 +195,11 @@ if CLIENT then
 			surface.SetTextColor( 255, 255, 255, 50 ) 
 			surface.SetFont( "Default" )
 			if self:GetOwner():GetNWString("RE2_DisplayAmmotype") == "GaussEnergy" then
-				surface.DrawText("Fire Rounds "..self:GetOwner():GetAmmoCount( "GaussEnergy" ).."")
+				surface.DrawText(translate.Format("grenade_launcher_fire_rounds_x", self:GetOwner():GetAmmoCount( "GaussEnergy" ) ))
 			elseif self:GetOwner():GetNWString("RE2_DisplayAmmotype") == "Battery" then
-				surface.DrawText("Freeze Rounds "..self:GetOwner():GetAmmoCount( "Battery" ).."")
+				surface.DrawText(translate.Format("grenade_launcher_freeze_rounds_x", self:GetOwner():GetAmmoCount( "Battery" ) ))
 			elseif self:GetOwner():GetNWString("RE2_DisplayAmmotype") == "CombineCannon" then
-				surface.DrawText("Explosive Rounds "..self:GetOwner():GetAmmoCount( "CombineCannon" ).."")
+				surface.DrawText(translate.Format("grenade_launcher_explosive_rounds_x", self:GetOwner():GetAmmoCount( "CombineCannon" ) ))
 			end
 			
 	end

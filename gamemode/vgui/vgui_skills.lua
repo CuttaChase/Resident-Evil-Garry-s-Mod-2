@@ -26,9 +26,9 @@ function MENU:SkillsMenu()
 			surface.SetDrawColor( maincolor )	
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
-		draw.SimpleTextOutlined( "Skills", "wOS.GenericLarge", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get( "skills_menu_title" ), "wOS.GenericLarge", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 		surface.SetFont( "wOS.GenericLarge" )
-		local tx, ty = surface.GetTextSize( "Skills" )
+		local tx, ty = surface.GetTextSize( translate.Get( "skills_menu_title" ) )
 		surface.SetDrawColor( color_white )
 		surface.DrawLine( ww/2 - tx/2, hh*0.1, ww/2 + tx/2, hh*0.1 )
 	end
@@ -45,7 +45,7 @@ function MENU:SkillsMenu()
 	
 	
 	--
-	SkillsRemaining:SetText( "You Have "..points.." Points" )
+	SkillsRemaining:SetText( translate.Format( "skills_menu_you_have_x_points", points ) )
 	SkillsRemaining:SetFont( "wOS.GenericMed" )
 	SkillsRemaining:CenterHorizontal(0.41)
 	SkillsRemaining:CenterVertical( -0.28 )
@@ -54,7 +54,7 @@ function MENU:SkillsMenu()
 	
 	
 	
-	--draw.SimpleTextOutlined( ""..points.." Points", "wOS.GenericMed", mw/2, mh/1.2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+	--draw.SimpleTextOutlined( translate.Format( "skills_menu_x_points", points ), "wOS.GenericMed", mw/2, mh/1.2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 
 	-------------------------------------------------
 
@@ -68,12 +68,12 @@ function MENU:SkillsMenu()
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
 		
-		draw.SimpleTextOutlined( "AttackPower", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get( "skills_menu_attpower_name" ), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		local attackpoints = LocalPlayer():GetNWInt("AttackPoints")
 		if attackpoints < 50 then
 			draw.SimpleTextOutlined( attackpoints, "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		else
-			draw.SimpleTextOutlined( "Max", "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get( "skills_menu_maxed_skill" ), "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		end
 	end
 	AttackPower.DoClick = function( pan )
@@ -84,7 +84,7 @@ function MENU:SkillsMenu()
 			net.Start("REGmod.AttackPower")
 			net.SendToServer()
 		else
-			LocalPlayer():PrintMessage(HUD_PRINTCENTER,"Max Attack Power")
+			LocalPlayer():PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_attpower_maxed")
 		end
 	end
 
@@ -100,11 +100,11 @@ function MENU:SkillsMenu()
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
 		local healthpoints = LocalPlayer():GetNWInt("HealthPoints")
-		draw.SimpleTextOutlined( "HealthUp", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get( "skills_menu_healthup_name" ), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		if healthpoints < 150 then
 			draw.SimpleTextOutlined( healthpoints, "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		else
-			draw.SimpleTextOutlined( "Max", "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get( "skills_menu_maxed_skill" ), "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		end
 	end
 	HealthUp.DoClick = function( pan )
@@ -117,7 +117,7 @@ function MENU:SkillsMenu()
 			net.Start("REGmod.HealthUp")
 			net.SendToServer()
 		else
-			LocalPlayer():PrintMessage(HUD_PRINTCENTER,"Max Health Up")
+			LocalPlayer():PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_healthup_maxed")
 		end
 	end
 
@@ -135,11 +135,11 @@ function MENU:SkillsMenu()
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
 		local ammopoints = LocalPlayer():GetNWInt("AmmoRegenPoints")
-		draw.SimpleTextOutlined( "Ammo Regen", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get( "skills_menu_ammoregen_name" ), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		if ammopoints < 75 then
 			draw.SimpleTextOutlined( ammopoints, "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		else
-			draw.SimpleTextOutlined( "Max", "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get( "skills_menu_maxed_skill" ), "Trebuchet18", ww/2, hh/2+20, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		end
 	end
 	AmmoUp.DoClick = function( pan )
@@ -153,7 +153,7 @@ function MENU:SkillsMenu()
 			net.Start("REGmod.AmmoRegen")
 			net.SendToServer()
 		else
-			LocalPlayer():PrintMessage(HUD_PRINTCENTER,"Max Ammo Regen")
+			LocalPlayer():PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_ammoregen_maxed")
 		end
 	end
 
@@ -166,7 +166,7 @@ function MENU:SkillsMenu()
 	HealthUpStat:SetSize( mw, mh )
 	HealthUpStat:SetText( "" )
 	HealthUpStat.Paint = function( pan, ww, hh )
-		draw.SimpleTextOutlined( "Health Increased by "..hpointsadjusted.."%", "Trebuchet18", ww*0.25, hh*0.79, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Format( "skills_menu_attpower_upgradestat", hpointsadjusted ), "Trebuchet18", ww*0.25, hh*0.79, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 	end
 
 	local AttackUpStat = vgui.Create( "DLabel", self.Skills )
@@ -175,7 +175,7 @@ function MENU:SkillsMenu()
 	AttackUpStat:SetSize( mw, mh )
 	AttackUpStat:SetText( "" )
 	AttackUpStat.Paint = function( pan, ww, hh )
-		draw.SimpleTextOutlined( "Power Increased by "..apointsadjusted.."%", "Trebuchet18", ww*0.25, hh*0.72, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Format( "skills_menu_healthup_upgradestat", apointsadjusted ), "Trebuchet18", ww*0.25, hh*0.72, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 	end
 
 
@@ -187,9 +187,9 @@ function MENU:SkillsMenu()
 	AmmoUpStat:SetText( "" )
 	AmmoUpStat.Paint = function( pan, ww, hh )
 		if ammopoints > 0 then
-			draw.SimpleTextOutlined( "AmmoRegen Rate Is "..ammopointsadjusted.." seconds", "Trebuchet18", ww*0.75, hh*0.72, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Format( "skills_menu_ammoregen_upgradestat", ammopointsadjusted ), "Trebuchet18", ww*0.75, hh*0.72, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		else
-			draw.SimpleTextOutlined( "No AmmoRegen", "Trebuchet18", ww*0.75, hh*0.72, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+			draw.SimpleTextOutlined( translate.Get( "skills_menu_ammoregen_noupgrade" ), "Trebuchet18", ww*0.75, hh*0.72, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 		end
 	end
 	
@@ -215,7 +215,7 @@ function MENU:SkillsMenu()
 			surface.SetDrawColor( Color( 0, 0, 0, 175 ) )	
 			surface.DrawRect( 0, 0, ww, hh )
 		MENU:EndStencil()
-		draw.SimpleTextOutlined( "Close Menu", "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
+		draw.SimpleTextOutlined( translate.Get( "skills_menu_close" ), "wOS.GenericMed", ww/2, hh/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
 	end
 	closebutt.DoClick = function( pan )
 		surface.PlaySound( "buttons/button14.wav" ) 

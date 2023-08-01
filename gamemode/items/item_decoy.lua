@@ -62,7 +62,7 @@ end
 
 ITEM.CustomOptions = {
 --[[
-	[ "Suicide" ] = function( ply )
+	[ translate.Get("inventory_suicide") ] = function( ply )
 		local ed = EffectData()
 		ed:SetOrigin( ply:GetPos() )
 		util.Effect( "Explosion", ed, true, true )

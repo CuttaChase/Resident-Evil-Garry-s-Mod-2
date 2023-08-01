@@ -447,12 +447,12 @@ end )
 net.Receive( "REGmod.HealthUp", function( len, ply )
 	
 	if ply:GetNWInt("SkillPoints") > 0 then
-		ply:PrintMessage(HUD_PRINTCENTER,"Health Up!")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_healthup_upgraded_msg")
 		ply:SetNWInt("HealthPoints", ply:GetNWInt("HealthPoints") + 1)
 		ply:SetNWInt("SkillPoints", ply:GetNWInt("SkillPoints") - 1)
-		ply:PrintMessage(HUD_PRINTCENTER,"You Have ".. ply:GetNWInt("SkillPoints") .. " Skill Points Left")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_you_have_x_skills_left", ply:GetNWInt("SkillPoints"))
 	else
-		ply:PrintMessage(HUD_PRINTCENTER,"You Don't Have Enough Skill Points")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_not_enough_skills")
 	end
 
 end )
@@ -462,12 +462,12 @@ end )
 net.Receive( "REGmod.AttackPower", function( len, ply )
 
 	if ply:GetNWInt("SkillPoints") > 0 then
-		ply:PrintMessage(HUD_PRINTCENTER,"Power Up!")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_attpower_upgraded_msg")
 		ply:SetNWInt("AttackPoints", ply:GetNWInt("AttackPoints") + 1)
 		ply:SetNWInt("SkillPoints", ply:GetNWInt("SkillPoints") - 1)
-		ply:PrintMessage(HUD_PRINTCENTER,"You Have ".. ply:GetNWInt("SkillPoints") .. " Skill Points Left")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_you_have_x_skills_left", ply:GetNWInt("SkillPoints"))
 	else
-		ply:PrintMessage(HUD_PRINTCENTER,"You Don't Have Enough Skill Points")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_not_enough_skills")
 	end
 
 end )
@@ -475,12 +475,12 @@ end )
 net.Receive( "REGmod.AmmoRegen", function( len, ply )
 
 	if ply:GetNWInt("SkillPoints") > 0 then
-		ply:PrintMessage(HUD_PRINTCENTER,"Ammo Regen Up!")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_ammoregen_upgraded_msg")
 		ply:SetNWInt("AmmoRegenPoints", ply:GetNWInt("AmmoRegenPoints") + 1)
 		ply:SetNWInt("SkillPoints", ply:GetNWInt("SkillPoints") - 1)
-		ply:PrintMessage(HUD_PRINTCENTER,"You Have ".. ply:GetNWInt("SkillPoints") .. " Skill Points Left")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_you_have_x_skills_left", ply:GetNWInt("SkillPoints"))
 	else
-		ply:PrintMessage(HUD_PRINTCENTER,"You Don't Have Enough Skill Points")
+		ply:PrintTranslatedMessage(HUD_PRINTCENTER,"skills_menu_not_enough_skills")
 	end
 
 end )
