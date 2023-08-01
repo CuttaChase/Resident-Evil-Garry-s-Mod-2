@@ -307,8 +307,8 @@ LANGUAGE.target_item_name_sauerp228          = "P228"
 LANGUAGE.target_item_name_ump45              = "UMP-45"
 
 --Target ID monsters
-LANGUAGE.target_monster_name_shambler        = "Хромоногий"
-LANGUAGE.target_monster_name_fastshambler    = "Быстрый хромоногий"
+LANGUAGE.target_monster_name_shambler        = "Зомби"
+LANGUAGE.target_monster_name_fastshambler    = "Быстрый зомби"
 LANGUAGE.target_monster_name_zombiedog       = "Собака-зомби"
 LANGUAGE.target_monster_name_nemesis         = "Немезид"
 
