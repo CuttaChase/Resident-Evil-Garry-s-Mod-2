@@ -82,10 +82,10 @@ DEFINE_BASECLASS( "gunbase" )
 SWEP.Slot = 3
 SWEP.SlotPos = 1 
 SWEP.Category = "Resident Evil 2 Swep"                          
-SWEP.PrintName = "Deagle"                        
+SWEP.PrintName = "#re2gm_wpn_deag"                        
 SWEP.Author = "@CuttaChaseBeats" 
-SWEP.Purpose = "Use Magnum Ammo And Shoots"         
-SWEP.Instructions = "LMB = Fire : RMB = Aim"              
+SWEP.Purpose = "#re2gm_wpn_deag_purpose"         
+SWEP.Instructions = "#re2gm_wpn_deag_inst"              
 SWEP.Contact = "cuttachasebeats@icloud.com"
 
 SWEP.Primary.Damage = 10

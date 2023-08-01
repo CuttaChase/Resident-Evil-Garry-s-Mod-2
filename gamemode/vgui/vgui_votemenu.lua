@@ -37,7 +37,7 @@ function MENU:VotingMenu()
 		MENU:EndStencil()
 		draw.SimpleTextOutlined( translate.Get("voting_menu"), "wOS.GenericLarge", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 		surface.SetFont( "wOS.GenericLarge" )
-		local tx, ty = surface.GetTextSize( "Voting" )
+		local tx, ty = surface.GetTextSize( translate.Get("voting_menu") )
 		surface.SetDrawColor( color_white )
 		surface.DrawLine( ww/2 - tx/2, hh*0.1, ww/2 + tx/2, hh*0.1 )
 	end

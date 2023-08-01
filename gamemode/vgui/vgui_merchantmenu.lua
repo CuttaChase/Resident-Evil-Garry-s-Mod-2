@@ -27,7 +27,7 @@ MENU.PaintTabs = {
 			surface.DrawLine( posx + ww*0.7/2 - tx/2, hh*0.05 + ty/2, posx + ww*0.7/2 + tx/2, hh*0.05 + ty/2 )
 
 			draw.SimpleTextOutlined( translate.Get("storage_inventory_title"), "wOS.GenericLarge", posx + ww*0.7 + ww*0.3/2, hh*0.05, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 0, color_white )
-			tx, ty = surface.GetTextSize( "Inventory" )
+			tx, ty = surface.GetTextSize( translate.Get("storage_inventory_title") )
 			surface.SetDrawColor( color_white )
 			surface.DrawLine( posx + ww*0.7 + ww*0.3/2 - tx/2, hh*0.05 + ty/2, posx + ww*0.7 + ww*0.3/2 + tx/2, hh*0.05 + ty/2 )
 

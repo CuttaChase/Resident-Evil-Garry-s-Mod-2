@@ -2,6 +2,39 @@ AddCSLuaFile()
 --zzDEFINE_BASECLASS( "tfa_gun_base" )
 SWEP.HoldType = "pistol"
 SWEP.Primary.ReloadingTime = 1
+
+--[[---------------------------------------------------------
+	This draws the weapon info box
+-----------------------------------------------------------]]
+function SWEP:PrintWeaponInfo( x, y, alpha )
+
+	if ( self.DrawWeaponInfoBox == false ) then return end
+
+	if (self.InfoMarkup == nil ) then
+		local str
+		local title_color = "<color=230,230,230,255>"
+		local text_color = "<color=150,150,150,255>"
+
+		str = "<font=HudSelectionText>"
+		if ( self.Author != "" ) then str = str .. title_color .. "#re2gm_wpn_base_author</color>\t" .. text_color .. self.Author .. "</color>\n" end
+		if ( self.Contact != "" ) then str = str .. title_color .. "#re2gm_wpn_base_contact</color>\t" .. text_color .. self.Contact .. "</color>\n\n" end
+		if ( self.Purpose != "" ) then str = str .. title_color .. "#re2gm_wpn_base_purpose</color>\n" .. text_color .. self.Purpose .. "</color>\n\n" end
+		if ( self.Instructions != "" ) then str = str .. title_color .. "#re2gm_wpn_base_inst</color>\n" .. text_color .. self.Instructions .. "</color>\n" end
+		str = str .. "</font>"
+
+		self.InfoMarkup = markup.Parse( str, 250 )
+	end
+
+	surface.SetDrawColor( 60, 60, 60, alpha )
+	surface.SetTexture( self.SpeechBubbleLid )
+
+	surface.DrawTexturedRect( x, y - 64 - 5, 128, 64 )
+	draw.RoundedBox( 8, x - 5, y - 6, 260, self.InfoMarkup:GetHeight() + 18, Color( 60, 60, 60, alpha ) )
+
+	self.InfoMarkup:Draw( x + 5, y + 5, nil, nil, alpha )
+
+end
+
 function SWEP:Initialize()
 
 	self:SetWeaponHoldType(self.HoldType)

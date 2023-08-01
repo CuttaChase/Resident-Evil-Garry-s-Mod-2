@@ -1,5 +1,5 @@
 if (CLIENT) then
-	SWEP.PrintName			= "Tactical Spas-12"
+	SWEP.PrintName			= "#re2gm_wpn_spas12"
 	SWEP.Slot				= 4
 	SWEP.SlotPos			= 0
 	SWEP.DrawAmmo 			= true

@@ -293,7 +293,7 @@ hook.Add("PostDrawHUD","ItemsText",function()
 	if distance > 80.0 then return end
 			text = temptable[entclass]
 			if text !=nil then
-			draw.SimpleText(text, "Trebuchet24", ScrW()/2, ScrH()/2*1.04, Color(255,255,255,130), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+			draw.SimpleText(translate.Get("target_item_name_" .. string.lower(text)), "Trebuchet24", ScrW()/2, ScrH()/2*1.04, Color(255,255,255,130), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		end
 
 end)
@@ -328,7 +328,7 @@ hook.Add( "PostDrawHUD", "ZombieHUD", function()
 
 			surface.SetDrawColor(255,25,255,255)
 			surface.SetFont("Default")
-			draw.SimpleText( zname, "TargetIDSmall", ScrW()/2, ScrH()/2*1.085, ZHealth,TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+			draw.SimpleText( translate.Get("target_monster_name_" .. string.lower(zname)), "TargetIDSmall", ScrW()/2, ScrH()/2*1.085, ZHealth,TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 		end
 end )
 

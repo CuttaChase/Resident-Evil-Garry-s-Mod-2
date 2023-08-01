@@ -611,10 +611,10 @@ DEFINE_BASECLASS( "gunbase" )
 SWEP.Slot = 4
 SWEP.SlotPos = 1
 SWEP.Category = "Resident Evil 2 Swep"                          
-SWEP.PrintName = "Pump Shotgun"                        
+SWEP.PrintName = "#re2gm_wpn_pshotty"                        
 SWEP.Author = "@CuttaChaseBeats" 
-SWEP.Purpose = "Use Shotgun Ammo And Shoots"         
-SWEP.Instructions = "LMB = Fire : RMB = Aim"              
+SWEP.Purpose = "#re2gm_wpn_pshotty_purpose"         
+SWEP.Instructions = "#re2gm_wpn_pshotty_inst"              
 SWEP.Contact = "cuttachasebeats@icloud.com"
 
 SWEP.Primary.Damage = 5

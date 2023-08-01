@@ -207,31 +207,31 @@ function GUI_VoteMenu(voting)
 
 				if GUI_Difficulty:GetSelectedLine() == 1 then
 
-					VoteOption["Difficulty"] = "Easy"
+					VoteOption["Difficulty"] = translate.Get("difficulty_name_easy")
 
 				elseif GUI_Difficulty:GetSelectedLine() == 2 then
 
-						VoteOption["Difficulty"] = "Normal"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_normal")
 
 				elseif GUI_Difficulty:GetSelectedLine() == 3 then
 
-						VoteOption["Difficulty"] = "Difficult"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_difficult")
 
 				elseif GUI_Difficulty:GetSelectedLine() == 4 then
 
-						VoteOption["Difficulty"] = "Expert"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_expert")
 
 				elseif GUI_Difficulty:GetSelectedLine() == 5 then
 
-						VoteOption["Difficulty"] = "Suicidal"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_suicidal")
 						
 				elseif GUI_Difficulty:GetSelectedLine() == 6 then
 
-						VoteOption["Difficulty"] = "Death"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_death")
 						
 				elseif GUI_Difficulty:GetSelectedLine() == 7 then
 
-						VoteOption["Difficulty"] = "RacoonCity"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_racooncity")
 
 				end
 
@@ -941,31 +941,31 @@ function GUI_VoteMenu(voting)
 
 				if GUI_Difficulty:GetSelectedLine() == easy then
 
-					VoteOption["Difficulty"] = "Easy"
+					VoteOption["Difficulty"] = translate.Get("difficulty_name_easy")
 
 				elseif GUI_Difficulty:GetSelectedLine() == norm then
 
-						VoteOption["Difficulty"] = "Normal"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_normal")
 
 				elseif GUI_Difficulty:GetSelectedLine() == diff then
 
-						VoteOption["Difficulty"] = "Difficult"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_difficult")
 
 				elseif GUI_Difficulty:GetSelectedLine() == exp then
 
-						VoteOption["Difficulty"] = "Expert"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_expert")
 
 				elseif GUI_Difficulty:GetSelectedLine() == suc then
 
-						VoteOption["Difficulty"] = "Suicidal"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_suicidal")
 						
 				elseif GUI_Difficulty:GetSelectedLine() == det then
 
-						VoteOption["Difficulty"] = "Death"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_death")
 						
 				elseif GUI_Difficulty:GetSelectedLine() == rac then
 
-						VoteOption["Difficulty"] = "RacoonCity"
+						VoteOption["Difficulty"] = translate.Get("difficulty_name_racooncity")
 
 				end
 

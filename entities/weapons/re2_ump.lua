@@ -512,7 +512,7 @@ end
 
 
 if (CLIENT) then
-	SWEP.PrintName			= "K&M UMP45"
+	SWEP.PrintName			= "#re2gm_wpn_ump45"
 	SWEP.Slot				= 5
 	SWEP.SlotPos			= 0
 	SWEP.IconLetter			= "q"

@@ -79,7 +79,7 @@ function GM:DecideVotes()
 			timer.Simple(5,function() 
 				RunConsoleCommand("changelevel", tostring(NewMap) ) 
 			end)
-			PrintTranslatedMessage(HUD_PRINTTALK,"changing_map_will_gamemode_on_difficulty",NewMap,translate.ClientGet(ply,"gametype_"..string.lower(gamemode)),translate.ClientGet(ply,"difficulty_name_"..string.lower(difficulty)))
+			PrintTranslatedMessage(HUD_PRINTTALK,"changing_map_will_gamemode_on_difficulty",NewMap,translate.Get("gametype_"..string.lower(gamemode)),translate.Get("difficulty_name_"..string.lower(difficulty)))
 			print("Changing to "..NewMap.." in 5 seconds. The gamemode will be "..gamemode.." On "..difficulty)
 		else
 

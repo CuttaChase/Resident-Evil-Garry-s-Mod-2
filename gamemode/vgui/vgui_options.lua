@@ -27,7 +27,7 @@ function MENU:OptionsMenu()
 		MENU:EndStencil()
 		draw.SimpleTextOutlined( translate.Get("options_title"), "wOS.GenericLarge", ww/2, hh*0.1, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM, 0, color_white )
 		surface.SetFont( "wOS.GenericLarge" )
-		local tx, ty = surface.GetTextSize( "Options" )
+		local tx, ty = surface.GetTextSize( translate.Get("options_title") )
 		surface.SetDrawColor( color_white )
 		surface.DrawLine( ww/2 - tx/2, hh*0.1, ww/2 + tx/2, hh*0.1 )
 	end

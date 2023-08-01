@@ -1,5 +1,5 @@
 if (CLIENT) then
-	SWEP.PrintName			= "Sauer P228"
+	SWEP.PrintName			= "#re2gm_wpn_p228"
 	SWEP.Slot				= 1
 	SWEP.SlotPos			= 1
 	SWEP.IconLetter			= "y"

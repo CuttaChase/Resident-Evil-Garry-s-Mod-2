@@ -1,5 +1,5 @@
 if (CLIENT) then
-	SWEP.PrintName			= "Quad Rocket Launcher"
+	SWEP.PrintName			= "#re2gm_wpn_quadrpg"
 	SWEP.Slot				= 4
 	SWEP.SlotPos			= 0
 	SWEP.IconLetter			= "C"

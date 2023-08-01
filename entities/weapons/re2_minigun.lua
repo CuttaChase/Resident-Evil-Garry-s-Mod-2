@@ -1,5 +1,5 @@
 if (CLIENT) then
-	SWEP.PrintName			= "Minigun"
+	SWEP.PrintName			= "#re2gm_wpn_minigun"
 	SWEP.Slot				= 4
 	SWEP.SlotPos			= 1
 	SWEP.IconLetter			= "V"

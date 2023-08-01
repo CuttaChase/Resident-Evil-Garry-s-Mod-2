@@ -6,7 +6,7 @@ if SERVER then
 
 end
 if CLIENT then
-	SWEP.PrintName			= "knife"
+	SWEP.PrintName			= "#re2gm_wpn_knife"
 	SWEP.Slot				= 0
 	SWEP.SlotPos			= 0
 	SWEP.DrawAmmo			= false
